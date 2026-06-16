@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz Clash - Game Over</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#c0c1ff",
+                    "secondary-container": "#b50036",
+                    "on-secondary": "#67001b",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#0d0d15",
+                    "on-primary-container": "#0d0096",
+                    "on-tertiary-fixed-variant": "#005321",
+                    "surface-dim": "#13131b",
+                    "surface-container": "#1f1f27",
+                    "surface-bright": "#393841",
+                    "on-surface": "#e4e1ed",
+                    "on-background": "#e4e1ed",
+                    "inverse-on-surface": "#303038",
+                    "outline-variant": "#464554",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "primary": "#c0c1ff",
+                    "surface-variant": "#34343d",
+                    "primary-fixed": "#e1e0ff",
+                    "on-tertiary-container": "#003111",
+                    "tertiary": "#4ae176",
+                    "secondary-fixed-dim": "#ffb2b7",
+                    "on-surface-variant": "#c7c4d7",
+                    "inverse-surface": "#e4e1ed",
+                    "background": "#13131b",
+                    "on-secondary-fixed": "#40000d",
+                    "secondary": "#ffb2b7",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed": "#002109",
+                    "on-primary-fixed": "#07006c",
+                    "surface-container-high": "#292932",
+                    "on-secondary-container": "#ffc2c4",
+                    "inverse-primary": "#494bd6",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#34343d",
+                    "surface": "#13131b",
+                    "on-error": "#690005",
+                    "primary-container": "#8083ff",
+                    "outline": "#908fa0",
+                    "on-primary": "#1000a9",
+                    "tertiary-fixed-dim": "#4ae176",
+                    "on-tertiary": "#003915",
+                    "tertiary-container": "#00a74b",
+                    "secondary-fixed": "#ffdadb",
+                    "on-secondary-fixed-variant": "#92002a",
+                    "surface-tint": "#c0c1ff",
+                    "tertiary-fixed": "#6bff8f",
+                    "surface-container-low": "#1b1b23"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "container-max": "1200px",
+                    "stack-sm": "8px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "stack-lg": "48px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-caps": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        .glow-text {
+            text-shadow: 0 0 10px rgba(192, 193, 255, 0.7), 0 0 20px rgba(192, 193, 255, 0.5);
+        }
+        .winner-card-glow {
+            box-shadow: 0 0 30px rgba(255, 178, 183, 0.4);
+            border: 2px solid rgba(255, 178, 183, 0.8);
+        }
+        .btn-primary-glow {
+            box-shadow: 0 0 15px rgba(128, 131, 255, 0.6);
+        }
+        
+        /* Confetti Animation Base */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm min-h-screen relative overflow-hidden flex flex-col items-center justify-center">
+<!-- Background Animation -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-50">
+<!-- STITCH_SHADER_START:ANIMATION_76 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_76" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_76');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec3 color1 = vec3(0.07, 0.07, 0.15); // Deep navy
+    vec3 color2 = vec3(0.15, 0.05, 0.25); // Deep purple
+    vec3 accent1 = vec3(0.23, 0.51, 0.96); // Blue
+    vec3 accent2 = vec3(0.93, 0.28, 0.6);  // Pink
+    
+    float noise = sin(uv.x * 10.0 + u_time * 0.5) * cos(uv.y * 10.0 + u_time * 0.5);
+    vec3 bg = mix(color1, color2, uv.y + noise * 0.1);
+    
+    // Glowing orbs
+    float orb1 = 1.0 - smoothstep(0.0, 0.6, length(uv - vec2(0.2 + sin(u_time * 0.3) * 0.1, 0.8)));
+    float orb2 = 1.0 - smoothstep(0.0, 0.6, length(uv - vec2(0.8 + cos(u_time * 0.4) * 0.1, 0.2)));
+    
+    bg += orb1 * accent1 * 0.2;
+    bg += orb2 * accent2 * 0.2;
+    
+    gl_FragColor = vec4(bg, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_76 -->
+</div>
+<!-- Confetti Container -->
+<div class="absolute inset-0 z-10 pointer-events-none overflow-hidden" id="confetti-container"></div>
+<!-- Main Content Container -->
+<main class="relative z-20 w-full max-w-container-max mx-auto px-margin-mobile flex flex-col items-center gap-stack-lg py-stack-lg">
+<!-- Header -->
+<header class="text-center w-full">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary glow-text tracking-tighter uppercase italic">Game Over</h1>
+<p class="font-headline-md text-headline-md text-on-surface-variant mt-unit">The clash has ended!</p>
+</header>
+<!-- Winner Card (1st Place) -->
+<section class="w-full max-w-md bg-surface-container rounded-xl p-gutter winner-card-glow flex flex-col items-center relative overflow-hidden transform transition-transform hover:scale-105 duration-300">
+<!-- Decorative Glow Background inside card -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary rounded-full filter blur-[50px] opacity-30"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-primary rounded-full filter blur-[50px] opacity-20"></div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="text-secondary font-display-lg text-display-lg mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span>1ST</span>
+</div>
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-secondary shadow-[0_0_20px_rgba(255,178,183,0.5)] mb-stack-md">
+<img alt="Winner Avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a cheerful young man with short brown hair, wearing a casual light blue t-shirt. The background is a clean, neutral white studio setting. The lighting is soft and bright, creating a welcoming and friendly mood suitable for a game show winner." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl_XyKLGgbPe9p_EplyB1TC1TOShIjrjnotuKuFPZ9DHEVE2EukFNFcrhlycjIeIsxYeLxZQa7olwogL0BSPf34uI9PLP5P9U-ycrQFvW_gYqFKpVyBUVAwr2b-WuCk17gwXpkND8Qia-WI6otOQ6iEHvFkwOkZ632KWTr9fGua6g_9S3-OQpQdevisRWvqnqLUm8iAdHAk8yCk4tK9x0zg1isFoTB6nWwTUjsG6Tp9Ir7WVgQ9CKG_cuMrNFxIUmFyv-VKNnBZCQ"/>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-unit">AlexTheGreat</h2>
+<div class="bg-surface-container-high px-4 py-2 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">star</span>
+<span class="font-body-lg text-body-lg font-bold text-tertiary">14,250 pts</span>
+</div>
+</div>
+</section>
+<!-- Full Ranking List -->
+<section class="w-full max-w-2xl bg-surface rounded-lg p-margin-mobile shadow-lg border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-md border-b border-outline-variant pb-2">Final Standings</h3>
+<div class="flex flex-col gap-unit">
+<!-- Rank 2 -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded hover:bg-surface-variant transition-colors group">
+<div class="flex items-center gap-4">
+<span class="font-body-lg text-body-lg font-bold text-on-surface-variant w-6 text-center">2</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img alt="2nd Place Avatar" class="w-full h-full object-cover" data-alt="Portrait of a smiling young woman with long dark hair, wearing a simple black top against a blurred outdoor background. The lighting is natural and bright, conveying a casual, approachable energy suitable for a competitive game profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPT7OflPI5h7-XXqLjqfHgAp8_zQaepmN6bKMSIlwK7VBt8A-RQcUq0fkFiAd-2GTei50ZmFGYC5ipKW1SBtutoExxE0QIlCXUEOxC5XJPQWCgLBAkvqWd5RRZrI8PsZLYf8ZcJH6jMrx9mXWWvni7-Ict9U152i2owNJqsY9pJUk2f0zZBohgQsU_e3bSOndGjFuRf-uzlUe5QBwk57Wp2gRrtjv0izHXUbM7a5FVEVOEWo_T560ZTYccmh8vOOV6E8BXUcSFItU"/>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">SarahWins</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-tertiary transition-colors">12,100 pts</span>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded hover:bg-surface-variant transition-colors group">
+<div class="flex items-center gap-4">
+<span class="font-body-lg text-body-lg font-bold text-on-surface-variant w-6 text-center">3</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img alt="3rd Place Avatar" class="w-full h-full object-cover" data-alt="A portrait of a thoughtful man with glasses and a slight beard, wearing a dark shirt. The setting is indoors with soft, warm lighting that highlights his features against a dark, moody background, fitting a focused quiz participant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPFj9UNQh6GzgYuASsuLuzwqY3aehXMl3e24GdwkmbCkwBXnKAQFeF6hZujJP5m2_Oq96rg3Qzy0DEFDRexnfuJN4kxfeFvWAlFiSI3ifN-nA1SKbwR5Ng1_gJwqKk9R0ogzpK_F_2r21GToplVPP_3CCQLT3_EXhd1-scDxB2yfM2tzBGReHtO3A892Lphb1GhUKBJVQNLs-ihYvc8pcqs0sdaNMHepx_7MNrOv1cWNxl2ryLiueyM7W1Do_eAp4zHj2A-qsg6x0"/>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">QuizMaster99</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-tertiary transition-colors">10,550 pts</span>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded hover:bg-surface-variant transition-colors group">
+<div class="flex items-center gap-4">
+<span class="font-body-lg text-body-lg font-bold text-on-surface-variant w-6 text-center">4</span>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">Guest_1234</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">8,400 pts</span>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-stack-md w-full max-w-md mt-stack-md">
+<button class="flex-1 bg-primary-container text-on-primary-container font-body-lg text-body-lg font-bold py-4 rounded-full btn-primary-glow hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">replay</span>
+                Play Again
+            </button>
+<button class="flex-1 bg-transparent border-2 border-outline-variant text-on-surface font-body-lg text-body-lg font-bold py-4 rounded-full hover:bg-surface-variant hover:border-surface-bright active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">home</span>
+                Back to Home
+            </button>
+</div>
+</main>
+<script>
+        // Simple Confetti Generator
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#c0c1ff', '#b50036', '#4ae176', '#ffb2b7', '#8083ff'];
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Randomize properties
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100 + 'vw';
+                const animationDuration = Math.random() * 3 + 2 + 's';
+                const animationDelay = Math.random() * 5 + 's';
+                
+                confetti.style.backgroundColor = color;
+                confetti.style.left = left;
+                confetti.style.animationDuration = animationDuration;
+                confetti.style.animationDelay = animationDelay;
+                
+                // Random shapes (square or slightly rectangular)
+                if (Math.random() > 0.5) {
+                    confetti.style.height = '15px';
+                    confetti.style.width = '8px';
+                }
+
+                container.appendChild(confetti);
+            }
+        }
+
+        // Initialize confetti on load
+        window.addEventListener('DOMContentLoaded', createConfetti);
+    </script>
+</body></html>
