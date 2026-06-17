@@ -1,8 +1,18 @@
-import { emptySlots, maxPlayers, players } from "../lib/lobby";
+import type { Player } from "../api/gameTypes";
 import EmptyPlayerSlot from "./EmptyPlayerSlot";
 import PlayerCard from "./PlayerCard";
 
-function PlayersSection() {
+type PlayersSectionProps = {
+  players: Player[];
+  maxPlayers: number;
+};
+
+function PlayersSection({ players, maxPlayers }: PlayersSectionProps) {
+  const emptySlots = Array.from(
+    { length: Math.max(maxPlayers - players.length, 0) },
+    (_, index) => index,
+  );
+
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between gap-4 px-2">

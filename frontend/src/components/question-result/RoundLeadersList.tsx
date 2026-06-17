@@ -88,9 +88,14 @@ function RoundLeadersList({ leaders }: RoundLeadersListProps) {
                 }`}
               />
               <div className="flex min-w-0 items-center gap-2">
-                <span className="truncate font-extrabold text-[#e4e1ed]">
-                  {leader.name}
-                </span>
+                <div className="min-w-0">
+                  <span className="block truncate font-extrabold text-[#e4e1ed]">
+                    {leader.name}
+                  </span>
+                  <span className="block text-xs font-bold text-[#c7c4d7]">
+                    {leader.totalPoints.toLocaleString("pl-PL")} pkt razem
+                  </span>
+                </div>
                 <span
                   className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${positionChangeStyles[leader.positionChange].className}`}
                   title={positionChangeStyles[leader.positionChange].label}
@@ -104,7 +109,7 @@ function RoundLeadersList({ leaders }: RoundLeadersListProps) {
             </div>
 
             <div className="shrink-0 rounded-lg bg-[#4ae176]/10 px-2 py-1 font-extrabold text-[#4ae176]">
-              +{leader.points} pkt
+              +{leader.pointsGained} pkt
             </div>
           </motion.div>
         );

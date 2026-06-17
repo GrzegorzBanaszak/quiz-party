@@ -1,6 +1,7 @@
 export type CategoryTone = "primary" | "tertiary" | "secondary";
 
 export type VotingCategory = {
+  id: string;
   title: string;
   description: string;
   icon: string;
@@ -10,6 +11,7 @@ export type VotingCategory = {
 
 export const votingCategories: VotingCategory[] = [
   {
+    id: "pop-culture",
     title: "Popkultura",
     description: "Filmy, muzyka i viralowe trendy",
     icon: "movie",
@@ -17,6 +19,7 @@ export const votingCategories: VotingCategory[] = [
     tone: "primary",
   },
   {
+    id: "history",
     title: "Historia",
     description: "Dawne imperia i wielkie wydarzenia",
     icon: "account_balance",
@@ -24,6 +27,7 @@ export const votingCategories: VotingCategory[] = [
     tone: "tertiary",
   },
   {
+    id: "science",
     title: "Nauka",
     description: "Kosmos, biologia i fizyka",
     icon: "science",

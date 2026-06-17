@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import AppHeader from '../components/AppHeader'
+import { Link } from "react-router-dom";
+import AppHeader from "../components/AppHeader";
 
 function HomePage() {
   return (
@@ -38,7 +38,7 @@ function HomePage() {
         </div>
       </section>
     </main>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

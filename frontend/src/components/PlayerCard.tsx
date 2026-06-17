@@ -1,10 +1,12 @@
-import type { Player } from "../lib/lobby";
+import type { Player } from "../api/gameTypes";
+import { getAvatarUrl } from "../lib/avatars";
 
 type PlayerCardProps = {
   player: Player;
 };
 
 function PlayerCard({ player }: PlayerCardProps) {
+  const status = player.isHost ? "Host" : player.isReady ? "Ready" : "Not ready";
   const cardClassName = player.isHost
     ? "border-[#ffd166] shadow-[0_0_26px_rgba(255,209,102,0.22)]"
     : player.isReady
@@ -29,7 +31,7 @@ function PlayerCard({ player }: PlayerCardProps) {
       ? "text-[#4ae176]"
       : "text-[#908fa0]";
 
-  const statusIcon = player.isReady ? "check" : "sync";
+  const statusIcon = player.isReady ? "check" : "radio_button_unchecked";
 
   return (
     <div
@@ -37,7 +39,7 @@ function PlayerCard({ player }: PlayerCardProps) {
     >
       <div className="relative mt-1">
         <img
-          src={player.avatar}
+          src={player.avatar ?? getAvatarUrl(player.name, "5aa7ff")}
           alt=""
           className={`h-16 w-16 rounded-full bg-[#292932] object-cover ${avatarClassName}`}
         />
@@ -45,9 +47,7 @@ function PlayerCard({ player }: PlayerCardProps) {
           className={`absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#13131b] ${badgeClassName}`}
         >
           <span
-            className={`material-symbols-outlined block text-[12px] ${
-              player.isReady ? "" : "animate-spin"
-            }`}
+            className="material-symbols-outlined block text-[12px]"
             data-icon={statusIcon}
             data-weight={player.isReady ? "fill" : undefined}
             aria-hidden="true"
@@ -63,7 +63,7 @@ function PlayerCard({ player }: PlayerCardProps) {
       <p
         className={`text-[10px] font-black tracking-[0.08em] uppercase ${statusClassName}`}
       >
-        {player.status}
+        {status}
       </p>
     </div>
   );

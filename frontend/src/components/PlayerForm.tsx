@@ -1,7 +1,9 @@
 import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { avatarBackgroundColors, avatarSeeds } from "../lib/avatars";
+import { avatarBackgroundColors, avatarSeeds, getAvatarUrl } from "../lib/avatars";
+import { useGameSession } from "../game/GameSessionContext";
 import AvatarPicker from "./AvatarPicker";
+import PartyQuizLogo from "./PartyQuizLogo";
 
 type PlayerFormMode = "create" | "join";
 
@@ -11,6 +13,7 @@ type PlayerFormProps = {
 
 function PlayerForm({ mode }: PlayerFormProps) {
   const navigate = useNavigate();
+  const { createGame, joinGame, isLoading, error } = useGameSession();
   const [nickname, setNickname] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(avatarSeeds[0]);
@@ -30,9 +33,19 @@ function PlayerForm({ mode }: PlayerFormProps) {
   const footerAction = isJoining ? "Create one here" : "Join one here";
   const switchPath = isJoining ? "/create" : "/join";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    navigate("/lobby");
+    const avatar = getAvatarUrl(selectedAvatar, selectedBackgroundColor);
+
+    try {
+      const nextRoomCode = isJoining
+        ? await joinGame(roomCode, nickname, avatar)
+        : await createGame(nickname, avatar);
+
+      navigate(`/rooms/${nextRoomCode}`);
+    } catch {
+      // The session provider exposes the readable error message.
+    }
   }
 
   return (
@@ -56,13 +69,7 @@ function PlayerForm({ mode }: PlayerFormProps) {
             </span>
           </button>
 
-          <div className="flex items-center gap-3">
-            <div className="relative text-sm font-extrabold text-transparent uppercase">
-              <span className="text-lg font-extrabold bg-gradient-to-r from-[#5aa7ff] via-[#a879ff] to-[#ff3f87] bg-clip-text">
-                Party Quiz
-              </span>
-            </div>
-          </div>
+          <PartyQuizLogo />
 
           <div className="w-[76px]" />
         </nav>
@@ -132,11 +139,17 @@ function PlayerForm({ mode }: PlayerFormProps) {
 
               <button
                 type="submit"
+                disabled={isLoading || !nickname.trim() || (isJoining && roomCode.length !== 4)}
                 className="mt-2 flex h-16 w-full items-center justify-center gap-3 rounded-full bg-[#c0c1ff] px-8 text-xl font-black text-[#1000a9] shadow-[0_0_24px_rgba(192,193,255,0.36),0_16px_36px_rgba(91,81,255,0.22)] transition hover:bg-[#d2d2ff] focus:ring-4 focus:ring-[#c0c1ff]/35 focus:outline-none active:scale-[0.98]"
               >
-                {submitLabel}
+                {isLoading ? "Loading..." : submitLabel}
                 <span aria-hidden="true">-&gt;</span>
               </button>
+              {error ? (
+                <p className="text-center text-sm font-bold text-[#ffb2b7]">
+                  {error}
+                </p>
+              ) : null}
             </div>
 
             <div className="border-t border-[#464554]/45 pt-4 text-center">

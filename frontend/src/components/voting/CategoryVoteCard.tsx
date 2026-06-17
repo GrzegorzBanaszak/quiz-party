@@ -3,7 +3,7 @@ import type { CategoryTone, VotingCategory } from "../../lib/votingCategories";
 type CategoryVoteCardProps = {
   category: VotingCategory;
   isSelected: boolean;
-  onSelect: (categoryTitle: string) => void;
+  onSelect: (categoryId: string) => void;
 };
 
 const toneStyles: Record<
@@ -38,7 +38,7 @@ function CategoryVoteCard({
     <button
       type="button"
       aria-pressed={isSelected}
-      onClick={() => onSelect(category.title)}
+      onClick={() => onSelect(category.id)}
       className={`group flex min-h-[96px] w-full items-center gap-5 rounded-[1.65rem] border px-5 text-left shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] transition duration-200 hover:-translate-y-0.5 hover:border-[#c0c1ff]/60 hover:bg-[#292932] focus:ring-4 focus:ring-[#c0c1ff]/20 focus:outline-none ${
         isSelected
           ? "border-[#c0c1ff] bg-[#2a2a3a] shadow-[0_0_24px_rgba(192,193,255,0.28),0_1px_0_rgba(255,255,255,0.08)_inset]"

@@ -231,7 +231,7 @@ Pytanie wysyłane do graczy w stanie `Question` nie powinno zawierać `correctAn
       "playerId": "player-id",
       "selectedAnswerId": "answer-b",
       "isCorrect": true,
-      "pointsGained": 850,
+      "pointsGained": 333,
       "totalPoints": 1200,
       "rank": 2,
       "previousRank": 3,
@@ -358,7 +358,7 @@ Przykładowe body:
 }
 ```
 
-`answeredAtMs` oznacza czas odpowiedzi liczony od startu pytania. API może użyć tej wartości do bonusu za szybkość.
+`answeredAtMs` oznacza czas odpowiedzi liczony od startu pytania. API używa tej wartości tylko do walidacji, czy odpowiedź mieści się w limicie czasu.
 
 Po zapisaniu odpowiedzi API rozgłasza `AnswerSubmitted` bez ujawniania odpowiedzi gracza innym klientom, chyba że UI będzie tego wymagało.
 
@@ -400,7 +400,9 @@ Zdarzenia wysyłane przez API:
 - Pytanie wysłane do klienta nie może ujawniać poprawnej odpowiedzi przed stanem `QuestionResult`.
 - Odpowiedź gracza powinna być przyjęta tylko raz dla danego pytania.
 - Brak odpowiedzi w limicie czasu oznacza `0` punktów za pytanie.
-- Domyślnie poprawna odpowiedź daje punkty, a szybsza poprawna odpowiedź może dawać bonus.
+- Każde pytanie ma pulę punktów bazowych. W MVP pula wynosi `1000` punktów.
+- Pula punktów za pytanie jest dzielona równo między graczy, którzy odpowiedzieli poprawnie.
+- Jeśli nikt nie odpowie poprawnie, nikt nie dostaje punktów za pytanie.
 - Po każdym pytaniu API publikuje poprawną odpowiedź, punkty zdobyte w pytaniu, aktualny ranking oraz zmianę pozycji w tabeli.
 - Ranking powinien być sortowany malejąco po liczbie punktów.
 - Remisy mogą być rozstrzygane później; MVP może dopuszczać ten sam wynik punktowy bez dodatkowego tie-breakera.

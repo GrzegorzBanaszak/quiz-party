@@ -3,26 +3,54 @@ import CategoryVoteCard from "../components/voting/CategoryVoteCard";
 import VotingHeader from "../components/voting/VotingHeader";
 import VotingHero from "../components/voting/VotingHero";
 import VotingStatusPanel from "../components/voting/VotingStatusPanel";
-import { votingCategories } from "../lib/votingCategories";
+import { useGameSession } from "../game/GameSessionContext";
+import { mapCategories } from "../game/gameUiMappers";
 
-const totalSeconds = 15;
+const totalSeconds = 10;
 
 function VotingPage() {
+  const {
+    snapshot,
+    selectedCategoryId,
+    voteCategory,
+    connectionStatus,
+  } = useGameSession();
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
+    function updateSecondsLeft() {
+      if (!snapshot) {
+        setSecondsLeft(totalSeconds);
+        return;
+      }
+
+      const elapsedSeconds = Math.floor(
+        (Date.now() - new Date(snapshot.updatedAtUtc).getTime()) / 1000,
+      );
+      setSecondsLeft(Math.max(totalSeconds - elapsedSeconds, 0));
+    }
+
+    updateSecondsLeft();
     const timer = window.setInterval(() => {
-      setSecondsLeft((current) => Math.max(current - 1, 0));
+      updateSecondsLeft();
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [snapshot]);
+
+  const categories = useMemo(
+    () => mapCategories(snapshot?.categories ?? [], snapshot?.categoryVoteCounts ?? {}),
+    [snapshot?.categories, snapshot?.categoryVoteCounts],
+  );
 
   const totalVotes = useMemo(
-    () => votingCategories.reduce((sum, category) => sum + category.votes, 0),
-    [],
+    () => categories.reduce((sum, category) => sum + category.votes, 0),
+    [categories],
   );
+
+  if (!snapshot) {
+    return null;
+  }
 
   return (
     <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#13131b] text-[#e4e1ed]">
@@ -36,12 +64,16 @@ function VotingPage() {
           <VotingHero secondsLeft={secondsLeft} totalSeconds={totalSeconds} />
 
           <div className="mx-auto flex w-full max-w-[760px] flex-col gap-4">
-            {votingCategories.map((category) => (
+            {categories.map((category) => (
               <CategoryVoteCard
-                key={category.title}
+                key={category.id}
                 category={category}
-                isSelected={selectedCategory === category.title}
-                onSelect={setSelectedCategory}
+                isSelected={selectedCategoryId === category.id}
+                onSelect={(categoryId) => {
+                  if (connectionStatus === "connected") {
+                    void voteCategory(categoryId);
+                  }
+                }}
               />
             ))}
           </div>

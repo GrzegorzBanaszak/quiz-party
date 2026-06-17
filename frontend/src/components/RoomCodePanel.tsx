@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { roomCode } from "../lib/lobby";
 
-function RoomCodePanel() {
+type RoomCodePanelProps = {
+  roomCode: string;
+};
+
+function RoomCodePanel({ roomCode }: RoomCodePanelProps) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopyRoomCode() {

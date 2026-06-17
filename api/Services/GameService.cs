@@ -13,9 +13,9 @@ public sealed class GameService
     private const string RoomCodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     private const int RoomCodeLength = 4;
     private const int CategorySelectionSeconds = 10;
-    private const int ResultDisplaySeconds = 4;
-    private const int BaseCorrectPoints = 500;
-    private const int MaxSpeedBonusPoints = 500;
+    private const int QuestionIntroSeconds = 5;
+    private const int ResultDisplaySeconds = 10;
+    private const int QuestionPointsPool = 1000;
 
     private readonly IRoomStore _roomStore;
     private readonly IQuestionBank _questionBank;
@@ -276,6 +276,7 @@ public sealed class GameService
         SubmitAnswerRequest request,
         CancellationToken cancellationToken)
     {
+        var shouldPublishResult = false;
         var room = await _roomStore.UpdateAsync(
             NormalizeRoomCode(code),
             (current, _) =>
@@ -293,7 +294,8 @@ public sealed class GameService
                 }
 
                 if (current.QuestionStartedAtUtc is { } questionStartedAt &&
-                    DateTimeOffset.UtcNow > questionStartedAt.AddSeconds(current.CurrentQuestion.TimeLimitSeconds))
+                    DateTimeOffset.UtcNow > questionStartedAt.AddSeconds(
+                        current.CurrentQuestion.TimeLimitSeconds + QuestionIntroSeconds))
                 {
                     throw new GameException(
                         StatusCodes.Status409Conflict,
@@ -337,6 +339,8 @@ public sealed class GameService
                     AnsweredAtMs = request.AnsweredAtMs
                 };
 
+                shouldPublishResult = answers.Count >= current.Players.Count;
+
                 return Task.FromResult(current with { Answers = answers });
             },
             cancellationToken);
@@ -349,6 +353,11 @@ public sealed class GameService
             room.Players.Count);
 
         await PublishAsync(room.Code, GameEvents.AnswerSubmitted, summary, cancellationToken);
+
+        if (shouldPublishResult)
+        {
+            await PublishQuestionResultAsync(room.Code, request.QuestionId, cancellationToken);
+        }
 
         return summary;
     }
@@ -447,18 +456,9 @@ public sealed class GameService
                     }
 
                     var previousLeaderboard = current.Leaderboard;
+                    var pointsByPlayerId = CalculateQuestionPoints(current, questionDefinition);
                     var scoredPlayers = current.Players
-                        .Select(player =>
-                        {
-                            current.Answers.TryGetValue(player.Id, out var submittedAnswer);
-                            var isCorrect = submittedAnswer is not null &&
-                                string.Equals(submittedAnswer.AnswerId, questionDefinition.CorrectAnswerId, StringComparison.OrdinalIgnoreCase);
-                            var pointsGained = isCorrect
-                                ? CalculatePoints(submittedAnswer!.AnsweredAtMs, current.CurrentQuestion.TimeLimitSeconds)
-                                : 0;
-
-                            return player with { Score = player.Score + pointsGained };
-                        })
+                        .Select(player => player with { Score = player.Score + pointsByPlayerId[player.Id] })
                         .ToList();
 
                     var leaderboard = BuildLeaderboard(scoredPlayers, previousLeaderboard);
@@ -475,8 +475,7 @@ public sealed class GameService
                         {
                             current.Answers.TryGetValue(player.Id, out var submittedAnswer);
                             var entry = rankByPlayer[player.Id];
-                            var isCorrect = submittedAnswer is not null &&
-                                string.Equals(submittedAnswer.AnswerId, questionDefinition.CorrectAnswerId, StringComparison.OrdinalIgnoreCase);
+                            var isCorrect = pointsByPlayerId[player.Id] > 0;
                             var previousRank = GetPreviousRank(previousLeaderboard, player.Id, entry.Rank);
 
                             return new PlayerQuestionResult
@@ -484,9 +483,7 @@ public sealed class GameService
                                 PlayerId = player.Id,
                                 SelectedAnswerId = submittedAnswer?.AnswerId,
                                 IsCorrect = isCorrect,
-                                PointsGained = isCorrect
-                                    ? CalculatePoints(submittedAnswer!.AnsweredAtMs, current.CurrentQuestion.TimeLimitSeconds)
-                                    : 0,
+                                PointsGained = pointsByPlayerId[player.Id],
                                 TotalPoints = player.Score,
                                 Rank = entry.Rank,
                                 PreviousRank = previousRank,
@@ -671,7 +668,7 @@ public sealed class GameService
         {
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(answerTimeSeconds));
+                await Task.Delay(TimeSpan.FromSeconds(answerTimeSeconds + QuestionIntroSeconds));
                 await PublishQuestionResultAsync(code, questionId, CancellationToken.None);
             }
             catch (Exception exception)
@@ -822,13 +819,26 @@ public sealed class GameService
             ?.Rank ?? fallbackRank;
     }
 
-    private static int CalculatePoints(int answeredAtMs, int timeLimitSeconds)
+    private static IReadOnlyDictionary<string, int> CalculateQuestionPoints(
+        Room room,
+        QuestionDefinition questionDefinition)
     {
-        var timeLimitMs = Math.Max(1, timeLimitSeconds * 1_000);
-        var clampedAnswerTime = Math.Clamp(answeredAtMs, 0, timeLimitMs);
-        var speedRatio = 1 - (clampedAnswerTime / (double)timeLimitMs);
+        var correctPlayerIds = room.Answers
+            .Values
+            .Where(answer => string.Equals(
+                answer.AnswerId,
+                questionDefinition.CorrectAnswerId,
+                StringComparison.OrdinalIgnoreCase))
+            .Select(answer => answer.PlayerId)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var pointsPerCorrectPlayer = correctPlayerIds.Count == 0
+            ? 0
+            : QuestionPointsPool / correctPlayerIds.Count;
 
-        return BaseCorrectPoints + (int)Math.Round(MaxSpeedBonusPoints * speedRatio);
+        return room.Players.ToDictionary(
+            player => player.Id,
+            player => correctPlayerIds.Contains(player.Id) ? pointsPerCorrectPlayer : 0,
+            StringComparer.OrdinalIgnoreCase);
     }
 
     private static void EnsureHost(Room room, string hostPlayerId)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import LobbyHeader from "../components/LobbyHeader";
 import QuestionAnswersGrid from "../components/question/QuestionAnswersGrid";
@@ -6,56 +6,85 @@ import QuestionBackground from "../components/question/QuestionBackground";
 import QuestionProgressFooter from "../components/question/QuestionProgressFooter";
 import QuestionPromptCard from "../components/question/QuestionPromptCard";
 import QuestionTimer from "../components/question/QuestionTimer";
-import {
-  currentQuestion,
-  questionRevealDelayMs,
-  totalQuestionPlayers,
-  totalQuestionSeconds,
-} from "../lib/question";
+import { useGameSession } from "../game/GameSessionContext";
+import { mapAnswers } from "../game/gameUiMappers";
+
+const questionIntroMs = 5_000;
 
 function QuestionPage() {
+  const {
+    snapshot,
+    localPlayer,
+    selectedAnswerId,
+    submitAnswer,
+    connectionStatus,
+  } = useGameSession();
+  const question = snapshot?.currentQuestion;
+  const totalQuestionSeconds = question?.timeLimitSeconds ?? 12;
   const [secondsLeft, setSecondsLeft] = useState(totalQuestionSeconds);
-  const [isQuestionActive, setIsQuestionActive] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [answeredPlayers, setAnsweredPlayers] = useState(0);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const answers = useMemo(
+    () => mapAnswers(question?.answers ?? []),
+    [question?.answers],
+  );
+  const selectedAnswerLetter =
+    question?.answers.find((answer) => answer.id === selectedAnswerId)?.letter ??
+    null;
+  const questionStartedAtMs = snapshot?.questionStartedAtUtc
+    ? new Date(snapshot.questionStartedAtUtc).getTime()
+    : null;
+  const answerStartedAtMs =
+    questionStartedAtMs === null ? null : questionStartedAtMs + questionIntroMs;
+  const areAnswersVisible =
+    questionStartedAtMs !== null && elapsedMs >= questionIntroMs;
 
   useEffect(() => {
-    const revealTimer = window.setTimeout(() => {
-      setIsQuestionActive(true);
-    }, questionRevealDelayMs);
-
-    return () => window.clearTimeout(revealTimer);
-  }, []);
-
-  useEffect(() => {
-    if (!isQuestionActive) {
+    if (!questionStartedAtMs || !question) {
       return;
     }
 
-    const timer = window.setInterval(() => {
-      setSecondsLeft((current) => Math.max(current - 1, 0));
-    }, 1000);
+    function updateQuestionClock() {
+      const nextElapsedMs = Math.max(Date.now() - questionStartedAtMs!, 0);
+      const answerElapsedSeconds =
+        nextElapsedMs < questionIntroMs
+          ? 0
+          : Math.floor((nextElapsedMs - questionIntroMs) / 1000);
+
+      setElapsedMs(nextElapsedMs);
+      setSecondsLeft(Math.max(totalQuestionSeconds - answerElapsedSeconds, 0));
+    }
+
+    updateQuestionClock();
+    const timer = window.setInterval(updateQuestionClock, 250);
 
     return () => window.clearInterval(timer);
-  }, [isQuestionActive]);
+  }, [question, questionStartedAtMs, totalQuestionSeconds]);
 
-  useEffect(() => {
-    if (!isQuestionActive) {
+  function handleSelectAnswer(letter: string) {
+    if (
+      !question ||
+      answerStartedAtMs === null ||
+      !areAnswersVisible ||
+      connectionStatus !== "connected"
+    ) {
       return;
     }
 
-    const playersTimer = window.setInterval(() => {
-      setAnsweredPlayers((current) => Math.min(current + 1, 8));
-    }, 850);
+    const answer = question.answers.find((candidate) => candidate.letter === letter);
+    if (!answer || selectedAnswerId) {
+      return;
+    }
 
-    return () => window.clearInterval(playersTimer);
-  }, [isQuestionActive]);
-
-  function handleSelectAnswer(letter: string) {
-    setSelectedAnswer(letter);
-    setAnsweredPlayers((current) =>
-      Math.min(Math.max(current, 9), totalQuestionPlayers),
+    const answeredAtMs = Math.max(
+      Date.now() - answerStartedAtMs,
+      0,
     );
+
+    void submitAnswer(answer.id, answeredAtMs);
+  }
+
+  if (!snapshot || !question) {
+    return null;
   }
 
   return (
@@ -63,7 +92,11 @@ function QuestionPage() {
       <QuestionBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <LobbyHeader />
+        <LobbyHeader
+          playerName={localPlayer?.name}
+          playerScore={localPlayer?.score}
+          playerAvatar={localPlayer?.avatar}
+        />
 
         <motion.section
           layout
@@ -71,7 +104,7 @@ function QuestionPage() {
           transition={{ layout: { type: "spring", stiffness: 240, damping: 30 } }}
         >
           <AnimatePresence>
-            {isQuestionActive ? (
+            {areAnswersVisible ? (
               <QuestionTimer
                 key="question-timer"
                 secondsLeft={secondsLeft}
@@ -82,20 +115,24 @@ function QuestionPage() {
 
           <QuestionPromptCard
             label={
-              isQuestionActive
-                ? "Odpowiedz teraz"
-                : `Pytanie ${currentQuestion.index} / ${currentQuestion.total}`
+              !areAnswersVisible
+                ? "Czytaj pytanie"
+                : selectedAnswerId
+                ? "Odpowiedz zapisana"
+                : `Pytanie ${snapshot.currentQuestionIndex} / ${
+                    snapshot.settings.questionsPerRound * snapshot.settings.roundsCount
+                  }`
             }
-            question={currentQuestion.text}
-            isActive={isQuestionActive}
+            question={question.text}
+            isActive={areAnswersVisible}
           />
 
           <AnimatePresence>
-            {isQuestionActive ? (
+            {areAnswersVisible ? (
               <QuestionAnswersGrid
                 key="question-answers"
-                answers={currentQuestion.answers}
-                selectedAnswer={selectedAnswer}
+                answers={answers}
+                selectedAnswer={selectedAnswerLetter}
                 onSelectAnswer={handleSelectAnswer}
               />
             ) : null}
@@ -103,12 +140,12 @@ function QuestionPage() {
         </motion.section>
 
         <AnimatePresence>
-          {isQuestionActive ? (
+          {areAnswersVisible ? (
             <QuestionProgressFooter
               key="question-progress"
-              answeredPlayers={answeredPlayers}
-              totalPlayers={totalQuestionPlayers}
-              selectedAnswer={selectedAnswer}
+              answeredPlayers={snapshot.answeredCount}
+              totalPlayers={snapshot.totalPlayers}
+              selectedAnswer={selectedAnswerLetter}
             />
           ) : null}
         </AnimatePresence>
