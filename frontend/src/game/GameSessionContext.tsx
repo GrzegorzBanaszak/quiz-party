@@ -11,6 +11,8 @@ import {
   createRoom,
   getRoom,
   joinRoom,
+  leaveRoom as leaveRoomRequest,
+  returnToLobby as returnToLobbyRequest,
   setPlayerReady,
   startGame,
   submitAnswer,
@@ -61,6 +63,8 @@ type GameSessionContextValue = GameSessionState & {
   startGame: () => Promise<void>;
   voteCategory: (categoryId: string) => Promise<void>;
   submitAnswer: (answerId: string, answeredAtMs: number) => Promise<void>;
+  leaveRoom: () => Promise<void>;
+  returnToLobby: () => Promise<void>;
   clearSession: () => void;
 };
 
@@ -334,12 +338,41 @@ export function GameSessionProvider({ children }: { children: ReactNode }) {
           }),
         );
       },
+      leaveRoom: async () => {
+        if (!commandRoomCode || !playerId) {
+          clearSession();
+          return;
+        }
+
+        try {
+          await leaveRoomRequest(commandRoomCode, playerId);
+          clearSession();
+        } catch (error) {
+          if (error instanceof GameApiError && error.status === 404) {
+            clearSession();
+            return;
+          }
+
+          handleError(error);
+          throw error;
+        }
+      },
+      returnToLobby: async () => {
+        if (!commandRoomCode || !playerId) {
+          return;
+        }
+
+        await runCommand(() =>
+          returnToLobbyRequest(commandRoomCode, { playerId }),
+        );
+      },
       clearSession,
     };
   }, [
     clearSession,
     commandRoomCode,
     createGame,
+    handleError,
     joinGame,
     loadRoom,
     playerId,

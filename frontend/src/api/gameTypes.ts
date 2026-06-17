@@ -5,6 +5,8 @@ export type RoomState =
   | "QuestionResult"
   | "Finished";
 
+export type QuestionDifficulty = "Easy" | "Medium" | "Hard";
+
 export type GameSettings = {
   questionsPerRound: number;
   roundsCount: number;
@@ -39,6 +41,8 @@ export type Question = {
   categoryId: string;
   text: string;
   answers: Answer[];
+  difficulty: QuestionDifficulty;
+  pointsPool: number;
   timeLimitSeconds: number;
 };
 
@@ -118,6 +122,10 @@ export type SetReadyRequest = {
 
 export type StartGameRequest = {
   hostPlayerId: string;
+};
+
+export type ReturnToLobbyRequest = {
+  playerId: string;
 };
 
 export type CategoryVoteRequest = {

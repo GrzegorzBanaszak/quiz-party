@@ -1,0 +1,2490 @@
+{
+  "categories": [
+    {
+      "id": "history",
+      "name": "Historia",
+      "description": "Dawne imperia i wielkie wydarzenia"
+    },
+    {
+      "id": "science",
+      "name": "Nauka",
+      "description": "Kosmos, biologia i fizyka"
+    },
+    {
+      "id": "pop-culture",
+      "name": "Popkultura",
+      "description": "Filmy, muzyka i viralowe trendy"
+    },
+    {
+      "id": "geography",
+      "name": "Geografia",
+      "description": "Państwa, miasta i kontynenty"
+    },
+    {
+      "id": "sports",
+      "name": "Sport",
+      "description": "Dyscypliny, rekordy i wielkie turnieje"
+    },
+    {
+      "id": "technology",
+      "name": "Technologia",
+      "description": "Internet, komputery i cyfrowe wynalazki"
+    },
+    {
+      "id": "movies",
+      "name": "Film",
+      "description": "Kino, reżyserzy i kultowe sceny"
+    },
+    {
+      "id": "music",
+      "name": "Muzyka",
+      "description": "Artyści, albumy i znane utwory"
+    },
+    {
+      "id": "literature",
+      "name": "Literatura",
+      "description": "Książki, autorzy i bohaterowie"
+    },
+    {
+      "id": "food",
+      "name": "Kuchnia",
+      "description": "Potrawy, składniki i smaki świata"
+    },
+    {
+      "id": "nature",
+      "name": "Przyroda",
+      "description": "Zwierzęta, rośliny i ekosystemy"
+    },
+    {
+      "id": "gaming",
+      "name": "Gry",
+      "description": "Planszówki, konsole i gry komputerowe"
+    }
+  ],
+  "questions": {
+    "history": [
+      {
+        "id": "history-1",
+        "text": "Które wydarzenie rozpoczęło II wojnę światową?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Atak Japonii na Pearl Harbor"
+          },
+          {
+            "id": "answer-b",
+            "text": "Atak Niemiec na Polskę"
+          },
+          {
+            "id": "answer-c",
+            "text": "Lądowanie w Normandii"
+          },
+          {
+            "id": "answer-d",
+            "text": "Bitwa o Anglię"
+          }
+        ]
+      },
+      {
+        "id": "history-2",
+        "text": "Kto był pierwszym królem Polski?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Bolesław Chrobry"
+          },
+          {
+            "id": "answer-b",
+            "text": "Mieszko II"
+          },
+          {
+            "id": "answer-c",
+            "text": "Kazimierz Wielki"
+          },
+          {
+            "id": "answer-d",
+            "text": "Władysław Łokietek"
+          }
+        ]
+      },
+      {
+        "id": "history-3",
+        "text": "W którym roku upadł mur berliński?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "1979"
+          },
+          {
+            "id": "answer-b",
+            "text": "1985"
+          },
+          {
+            "id": "answer-c",
+            "text": "1989"
+          },
+          {
+            "id": "answer-d",
+            "text": "1991"
+          }
+        ]
+      },
+      {
+        "id": "history-4",
+        "text": "Które miasto było stolicą Cesarstwa Bizantyjskiego?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ateny"
+          },
+          {
+            "id": "answer-b",
+            "text": "Rzym"
+          },
+          {
+            "id": "answer-c",
+            "text": "Aleksandria"
+          },
+          {
+            "id": "answer-d",
+            "text": "Konstantynopol"
+          }
+        ]
+      },
+      {
+        "id": "history-5",
+        "text": "Który żeglarz rozpoczął wyprawę, która jako pierwsza opłynęła Ziemię?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Krzysztof Kolumb"
+          },
+          {
+            "id": "answer-b",
+            "text": "Ferdynand Magellan"
+          },
+          {
+            "id": "answer-c",
+            "text": "James Cook"
+          },
+          {
+            "id": "answer-d",
+            "text": "Vasco da Gama"
+          }
+        ]
+      },
+      {
+        "id": "history-6",
+        "text": "Kto by? przyw?dc? powstania ko?ciuszkowskiego?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "J?zef Pi?sudski"
+          },
+          {
+            "id": "answer-b",
+            "text": "Jan III Sobieski"
+          },
+          {
+            "id": "answer-c",
+            "text": "Tadeusz Ko?ciuszko"
+          },
+          {
+            "id": "answer-d",
+            "text": "Stefan Czarniecki"
+          }
+        ]
+      },
+      {
+        "id": "history-7",
+        "text": "W kt?rym roku Polska odzyska?a niepodleg?o?? po zaborach?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "1905"
+          },
+          {
+            "id": "answer-b",
+            "text": "1918"
+          },
+          {
+            "id": "answer-c",
+            "text": "1920"
+          },
+          {
+            "id": "answer-d",
+            "text": "1939"
+          }
+        ]
+      },
+      {
+        "id": "history-8",
+        "text": "Kt?ry w?adca koronowa? si? na cesarza Francuz?w w 1804 roku?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Napoleon Bonaparte"
+          },
+          {
+            "id": "answer-b",
+            "text": "Ludwik XIV"
+          },
+          {
+            "id": "answer-c",
+            "text": "Karol Wielki"
+          },
+          {
+            "id": "answer-d",
+            "text": "Franciszek J?zef"
+          }
+        ]
+      }
+    ],
+    "science": [
+      {
+        "id": "science-1",
+        "text": "Która planeta jest znana jako Czerwona Planeta?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Wenus"
+          },
+          {
+            "id": "answer-b",
+            "text": "Mars"
+          },
+          {
+            "id": "answer-c",
+            "text": "Jowisz"
+          },
+          {
+            "id": "answer-d",
+            "text": "Saturn"
+          }
+        ]
+      },
+      {
+        "id": "science-2",
+        "text": "Jaki pierwiastek ma symbol chemiczny O?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Tlen"
+          },
+          {
+            "id": "answer-b",
+            "text": "Złoto"
+          },
+          {
+            "id": "answer-c",
+            "text": "Osm"
+          },
+          {
+            "id": "answer-d",
+            "text": "Węgiel"
+          }
+        ]
+      },
+      {
+        "id": "science-3",
+        "text": "Ile chromosomów ma zwykle komórka somatyczna człowieka?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "23"
+          },
+          {
+            "id": "answer-b",
+            "text": "44"
+          },
+          {
+            "id": "answer-c",
+            "text": "46"
+          },
+          {
+            "id": "answer-d",
+            "text": "48"
+          }
+        ]
+      },
+      {
+        "id": "science-4",
+        "text": "Co mierzy skala Richtera?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Prędkość wiatru"
+          },
+          {
+            "id": "answer-b",
+            "text": "Gęstość cieczy"
+          },
+          {
+            "id": "answer-c",
+            "text": "Jasność gwiazd"
+          },
+          {
+            "id": "answer-d",
+            "text": "Magnitudę trzęsienia ziemi"
+          }
+        ]
+      },
+      {
+        "id": "science-5",
+        "text": "Która cząstka ma ładunek ujemny?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Elektron"
+          },
+          {
+            "id": "answer-b",
+            "text": "Proton"
+          },
+          {
+            "id": "answer-c",
+            "text": "Neutron"
+          },
+          {
+            "id": "answer-d",
+            "text": "Foton"
+          }
+        ]
+      },
+      {
+        "id": "science-6",
+        "text": "Jak nazywa si? najbli?sza gwiazda Ziemi?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Proxima Centauri"
+          },
+          {
+            "id": "answer-b",
+            "text": "Syriusz"
+          },
+          {
+            "id": "answer-c",
+            "text": "Wega"
+          },
+          {
+            "id": "answer-d",
+            "text": "S?o?ce"
+          }
+        ]
+      },
+      {
+        "id": "science-7",
+        "text": "Kt?ry narz?d pompuje krew w organizmie cz?owieka?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Serce"
+          },
+          {
+            "id": "answer-b",
+            "text": "W?troba"
+          },
+          {
+            "id": "answer-c",
+            "text": "P?uco"
+          },
+          {
+            "id": "answer-d",
+            "text": "Nerka"
+          }
+        ]
+      },
+      {
+        "id": "science-8",
+        "text": "Jak? jednostk? mierzy si? op?r elektryczny?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Wolt"
+          },
+          {
+            "id": "answer-b",
+            "text": "Amper"
+          },
+          {
+            "id": "answer-c",
+            "text": "Om"
+          },
+          {
+            "id": "answer-d",
+            "text": "Wat"
+          }
+        ]
+      }
+    ],
+    "pop-culture": [
+      {
+        "id": "pop-culture-1",
+        "text": "Który film rozpoczął sagę filmową Star Wars według daty premiery?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Nowa nadzieja"
+          },
+          {
+            "id": "answer-b",
+            "text": "Mroczne widmo"
+          },
+          {
+            "id": "answer-c",
+            "text": "Imperium kontratakuje"
+          },
+          {
+            "id": "answer-d",
+            "text": "Powrót Jedi"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-2",
+        "text": "Który zespół nagrał album Abbey Road?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Queen"
+          },
+          {
+            "id": "answer-b",
+            "text": "The Rolling Stones"
+          },
+          {
+            "id": "answer-c",
+            "text": "The Beatles"
+          },
+          {
+            "id": "answer-d",
+            "text": "Pink Floyd"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-3",
+        "text": "Jak nazywa się szkoła magii Harry'ego Pottera?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Beauxbatons"
+          },
+          {
+            "id": "answer-b",
+            "text": "Hogwart"
+          },
+          {
+            "id": "answer-c",
+            "text": "Durmstrang"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ilvermorny"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-4",
+        "text": "Która gra spopularyzowała tryb battle royale na masową skalę w 2017 roku?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Minecraft"
+          },
+          {
+            "id": "answer-b",
+            "text": "League of Legends"
+          },
+          {
+            "id": "answer-c",
+            "text": "Counter-Strike"
+          },
+          {
+            "id": "answer-d",
+            "text": "Fortnite"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-5",
+        "text": "Który serial zaczyna się od zagubienia bohaterów na wyspie?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Lost"
+          },
+          {
+            "id": "answer-b",
+            "text": "Breaking Bad"
+          },
+          {
+            "id": "answer-c",
+            "text": "The Office"
+          },
+          {
+            "id": "answer-d",
+            "text": "Sherlock"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-6",
+        "text": "Kt?ry superbohater jest znany z tarczy w barwach USA?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Iron Man"
+          },
+          {
+            "id": "answer-b",
+            "text": "Kapitan Ameryka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Thor"
+          },
+          {
+            "id": "answer-d",
+            "text": "Hulk"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-7",
+        "text": "Jak nazywa si? fikcyjny kontynent z serialu Gra o tron?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Narnia"
+          },
+          {
+            "id": "answer-b",
+            "text": "?r?dziemie"
+          },
+          {
+            "id": "answer-c",
+            "text": "Pandora"
+          },
+          {
+            "id": "answer-d",
+            "text": "Westeros"
+          }
+        ]
+      },
+      {
+        "id": "pop-culture-8",
+        "text": "Kt?ra platforma spopularyzowa?a kr?tkie pionowe filmy z muzyk??",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "TikTok"
+          },
+          {
+            "id": "answer-b",
+            "text": "LinkedIn"
+          },
+          {
+            "id": "answer-c",
+            "text": "Pinterest"
+          },
+          {
+            "id": "answer-d",
+            "text": "Twitch"
+          }
+        ]
+      }
+    ],
+    "geography": [
+      {
+        "id": "geography-1",
+        "text": "Jaka jest stolica Kanady?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Toronto"
+          },
+          {
+            "id": "answer-b",
+            "text": "Montreal"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ottawa"
+          },
+          {
+            "id": "answer-d",
+            "text": "Vancouver"
+          }
+        ]
+      },
+      {
+        "id": "geography-2",
+        "text": "Który kontynent ma największą powierzchnię?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Azja"
+          },
+          {
+            "id": "answer-b",
+            "text": "Afryka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Europa"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ameryka Północna"
+          }
+        ]
+      },
+      {
+        "id": "geography-3",
+        "text": "Przez które miasto przepływa Sekwana?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Berlin"
+          },
+          {
+            "id": "answer-b",
+            "text": "Madryt"
+          },
+          {
+            "id": "answer-c",
+            "text": "Rzym"
+          },
+          {
+            "id": "answer-d",
+            "text": "Paryż"
+          }
+        ]
+      },
+      {
+        "id": "geography-4",
+        "text": "Które państwo ma najdłuższą linię brzegową?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Australia"
+          },
+          {
+            "id": "answer-b",
+            "text": "Kanada"
+          },
+          {
+            "id": "answer-c",
+            "text": "Brazylia"
+          },
+          {
+            "id": "answer-d",
+            "text": "Indie"
+          }
+        ]
+      },
+      {
+        "id": "geography-5",
+        "text": "Najwyższy szczyt świata to:",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "K2"
+          },
+          {
+            "id": "answer-b",
+            "text": "Kangchenjunga"
+          },
+          {
+            "id": "answer-c",
+            "text": "Mount Everest"
+          },
+          {
+            "id": "answer-d",
+            "text": "Lhotse"
+          }
+        ]
+      },
+      {
+        "id": "geography-6",
+        "text": "Kt?ra rzeka jest najd?u?sza w Polsce?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Odra"
+          },
+          {
+            "id": "answer-b",
+            "text": "Warta"
+          },
+          {
+            "id": "answer-c",
+            "text": "Wis?a"
+          },
+          {
+            "id": "answer-d",
+            "text": "Bug"
+          }
+        ]
+      },
+      {
+        "id": "geography-7",
+        "text": "Na kt?rym kontynencie le?y Egipt?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Afryka"
+          },
+          {
+            "id": "answer-b",
+            "text": "Azja"
+          },
+          {
+            "id": "answer-c",
+            "text": "Europa"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ameryka Po?udniowa"
+          }
+        ]
+      },
+      {
+        "id": "geography-8",
+        "text": "Kt?re morze oddziela Europ? od Afryki?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Morze Ba?tyckie"
+          },
+          {
+            "id": "answer-b",
+            "text": "Morze P??nocne"
+          },
+          {
+            "id": "answer-c",
+            "text": "Morze Czarne"
+          },
+          {
+            "id": "answer-d",
+            "text": "Morze ?r?dziemne"
+          }
+        ]
+      }
+    ],
+    "sports": [
+      {
+        "id": "sports-1",
+        "text": "Ilu zawodników jednej drużyny przebywa na boisku w piłce nożnej?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "9"
+          },
+          {
+            "id": "answer-b",
+            "text": "11"
+          },
+          {
+            "id": "answer-c",
+            "text": "12"
+          },
+          {
+            "id": "answer-d",
+            "text": "15"
+          }
+        ]
+      },
+      {
+        "id": "sports-2",
+        "text": "Jak nazywa się turniej tenisowy rozgrywany na trawiastych kortach w Londynie?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Roland Garros"
+          },
+          {
+            "id": "answer-b",
+            "text": "US Open"
+          },
+          {
+            "id": "answer-c",
+            "text": "Wimbledon"
+          },
+          {
+            "id": "answer-d",
+            "text": "Australian Open"
+          }
+        ]
+      },
+      {
+        "id": "sports-3",
+        "text": "W której dyscyplinie używa się krążka zamiast piłki?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Hokej na lodzie"
+          },
+          {
+            "id": "answer-b",
+            "text": "Koszykówka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Siatkówka"
+          },
+          {
+            "id": "answer-d",
+            "text": "Rugby"
+          }
+        ]
+      },
+      {
+        "id": "sports-4",
+        "text": "Co oznacza skrót NBA?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "National Baseball Association"
+          },
+          {
+            "id": "answer-b",
+            "text": "North Basketball Alliance"
+          },
+          {
+            "id": "answer-c",
+            "text": "New Basketball Academy"
+          },
+          {
+            "id": "answer-d",
+            "text": "National Basketball Association"
+          }
+        ]
+      },
+      {
+        "id": "sports-5",
+        "text": "Który kraj wygrał piłkarskie mistrzostwa świata mężczyzn w 2014 roku?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Argentyna"
+          },
+          {
+            "id": "answer-b",
+            "text": "Niemcy"
+          },
+          {
+            "id": "answer-c",
+            "text": "Brazylia"
+          },
+          {
+            "id": "answer-d",
+            "text": "Hiszpania"
+          }
+        ]
+      },
+      {
+        "id": "sports-6",
+        "text": "Ile punkt?w wart jest rzut wolny w koszyk?wce?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "1"
+          },
+          {
+            "id": "answer-b",
+            "text": "2"
+          },
+          {
+            "id": "answer-c",
+            "text": "3"
+          },
+          {
+            "id": "answer-d",
+            "text": "4"
+          }
+        ]
+      },
+      {
+        "id": "sports-7",
+        "text": "W jakiej dyscyplinie startuje si? w Tour de France?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Lekkoatletyka"
+          },
+          {
+            "id": "answer-b",
+            "text": "Kolarstwo"
+          },
+          {
+            "id": "answer-c",
+            "text": "Narciarstwo"
+          },
+          {
+            "id": "answer-d",
+            "text": "?eglarstwo"
+          }
+        ]
+      },
+      {
+        "id": "sports-8",
+        "text": "Jak nazywa si? najwa?niejszy fina? ligi NFL?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "World Series"
+          },
+          {
+            "id": "answer-b",
+            "text": "Stanley Cup"
+          },
+          {
+            "id": "answer-c",
+            "text": "Final Four"
+          },
+          {
+            "id": "answer-d",
+            "text": "Super Bowl"
+          }
+        ]
+      }
+    ],
+    "technology": [
+      {
+        "id": "technology-1",
+        "text": "Co oznacza skrót CPU?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Central Processing Unit"
+          },
+          {
+            "id": "answer-b",
+            "text": "Computer Power Utility"
+          },
+          {
+            "id": "answer-c",
+            "text": "Central Program User"
+          },
+          {
+            "id": "answer-d",
+            "text": "Cloud Processing Unit"
+          }
+        ]
+      },
+      {
+        "id": "technology-2",
+        "text": "Który protokół jest najczęściej kojarzony z bezpiecznymi stronami WWW?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "FTP"
+          },
+          {
+            "id": "answer-b",
+            "text": "SMTP"
+          },
+          {
+            "id": "answer-c",
+            "text": "IRC"
+          },
+          {
+            "id": "answer-d",
+            "text": "HTTPS"
+          }
+        ]
+      },
+      {
+        "id": "technology-3",
+        "text": "Jak nazywa się system operacyjny tworzony przez Apple dla komputerów Mac?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Windows"
+          },
+          {
+            "id": "answer-b",
+            "text": "Android"
+          },
+          {
+            "id": "answer-c",
+            "text": "macOS"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ubuntu"
+          }
+        ]
+      },
+      {
+        "id": "technology-4",
+        "text": "Która firma stworzyła język programowania TypeScript?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Google"
+          },
+          {
+            "id": "answer-b",
+            "text": "Microsoft"
+          },
+          {
+            "id": "answer-c",
+            "text": "Meta"
+          },
+          {
+            "id": "answer-d",
+            "text": "Oracle"
+          }
+        ]
+      },
+      {
+        "id": "technology-5",
+        "text": "Który standard sieci bezprzewodowej jest oznaczany także jako Wi-Fi 6?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "802.11ax"
+          },
+          {
+            "id": "answer-b",
+            "text": "802.11n"
+          },
+          {
+            "id": "answer-c",
+            "text": "802.11g"
+          },
+          {
+            "id": "answer-d",
+            "text": "802.3af"
+          }
+        ]
+      },
+      {
+        "id": "technology-6",
+        "text": "Co oznacza skr?t USB?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "United System Base"
+          },
+          {
+            "id": "answer-b",
+            "text": "Universal Signal Band"
+          },
+          {
+            "id": "answer-c",
+            "text": "Universal Serial Bus"
+          },
+          {
+            "id": "answer-d",
+            "text": "User Storage Bridge"
+          }
+        ]
+      },
+      {
+        "id": "technology-7",
+        "text": "Kt?ry format pliku jest najcz??ciej u?ywany do arkuszy kalkulacyjnych Microsoft Excel?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "DOCX"
+          },
+          {
+            "id": "answer-b",
+            "text": "XLSX"
+          },
+          {
+            "id": "answer-c",
+            "text": "PPTX"
+          },
+          {
+            "id": "answer-d",
+            "text": "ZIP"
+          }
+        ]
+      },
+      {
+        "id": "technology-8",
+        "text": "Jak nazywa si? technologia przechowywania danych w rozproszonym ?a?cuchu blok?w?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Blockchain"
+          },
+          {
+            "id": "answer-b",
+            "text": "Bluetooth"
+          },
+          {
+            "id": "answer-c",
+            "text": "Cache"
+          },
+          {
+            "id": "answer-d",
+            "text": "Firewall"
+          }
+        ]
+      }
+    ],
+    "movies": [
+      {
+        "id": "movies-1",
+        "text": "Który reżyser stworzył film Jurassic Park z 1993 roku?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "James Cameron"
+          },
+          {
+            "id": "answer-b",
+            "text": "George Lucas"
+          },
+          {
+            "id": "answer-c",
+            "text": "Steven Spielberg"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ridley Scott"
+          }
+        ]
+      },
+      {
+        "id": "movies-2",
+        "text": "Jak nazywa się filmowy archeolog grany przez Harrisona Forda?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Jack Ryan"
+          },
+          {
+            "id": "answer-b",
+            "text": "Indiana Jones"
+          },
+          {
+            "id": "answer-c",
+            "text": "Rick Deckard"
+          },
+          {
+            "id": "answer-d",
+            "text": "Han Solo"
+          }
+        ]
+      },
+      {
+        "id": "movies-3",
+        "text": "Który film zdobył Oscara za najlepszy film w 2020 roku?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Joker"
+          },
+          {
+            "id": "answer-b",
+            "text": "1917"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ford v Ferrari"
+          },
+          {
+            "id": "answer-d",
+            "text": "Parasite"
+          }
+        ]
+      },
+      {
+        "id": "movies-4",
+        "text": "W którym filmie pada kwestia: I'll be back?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Terminator"
+          },
+          {
+            "id": "answer-b",
+            "text": "Predator"
+          },
+          {
+            "id": "answer-c",
+            "text": "RoboCop"
+          },
+          {
+            "id": "answer-d",
+            "text": "Matrix"
+          }
+        ]
+      },
+      {
+        "id": "movies-5",
+        "text": "Który film Akiry Kurosawy zainspirował western Siedmiu wspaniałych?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Rashomon"
+          },
+          {
+            "id": "answer-b",
+            "text": "Ran"
+          },
+          {
+            "id": "answer-c",
+            "text": "Siedmiu samurajów"
+          },
+          {
+            "id": "answer-d",
+            "text": "Straż przyboczna"
+          }
+        ]
+      },
+      {
+        "id": "movies-6",
+        "text": "Kt?ry film opowiada o zabawce kowboju imieniem Woody?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Shrek"
+          },
+          {
+            "id": "answer-b",
+            "text": "Auta"
+          },
+          {
+            "id": "answer-c",
+            "text": "Epoka lodowcowa"
+          },
+          {
+            "id": "answer-d",
+            "text": "Toy Story"
+          }
+        ]
+      },
+      {
+        "id": "movies-7",
+        "text": "Kto zagra? Jacka Sparrowa w serii Piraci z Karaib?w?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Johnny Depp"
+          },
+          {
+            "id": "answer-b",
+            "text": "Orlando Bloom"
+          },
+          {
+            "id": "answer-c",
+            "text": "Brad Pitt"
+          },
+          {
+            "id": "answer-d",
+            "text": "Tom Hardy"
+          }
+        ]
+      },
+      {
+        "id": "movies-8",
+        "text": "Kt?ry film Christophera Nolana przedstawia sny we ?nie?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Interstellar"
+          },
+          {
+            "id": "answer-b",
+            "text": "Dunkierka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Incepcja"
+          },
+          {
+            "id": "answer-d",
+            "text": "Memento"
+          }
+        ]
+      }
+    ],
+    "music": [
+      {
+        "id": "music-1",
+        "text": "Ile strun ma standardowa gitara klasyczna?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "4"
+          },
+          {
+            "id": "answer-b",
+            "text": "6"
+          },
+          {
+            "id": "answer-c",
+            "text": "7"
+          },
+          {
+            "id": "answer-d",
+            "text": "8"
+          }
+        ]
+      },
+      {
+        "id": "music-2",
+        "text": "Który kompozytor napisał Dla Elizy?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ludwig van Beethoven"
+          },
+          {
+            "id": "answer-b",
+            "text": "Fryderyk Chopin"
+          },
+          {
+            "id": "answer-c",
+            "text": "Wolfgang Amadeus Mozart"
+          },
+          {
+            "id": "answer-d",
+            "text": "Johann Strauss"
+          }
+        ]
+      },
+      {
+        "id": "music-3",
+        "text": "Jak nazywa się najwyższy żeński głos śpiewaczy?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Alt"
+          },
+          {
+            "id": "answer-b",
+            "text": "Tenor"
+          },
+          {
+            "id": "answer-c",
+            "text": "Mezzosopran"
+          },
+          {
+            "id": "answer-d",
+            "text": "Sopran"
+          }
+        ]
+      },
+      {
+        "id": "music-4",
+        "text": "Z którego kraju pochodzi zespół ABBA?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Norwegia"
+          },
+          {
+            "id": "answer-b",
+            "text": "Dania"
+          },
+          {
+            "id": "answer-c",
+            "text": "Szwecja"
+          },
+          {
+            "id": "answer-d",
+            "text": "Finlandia"
+          }
+        ]
+      },
+      {
+        "id": "music-5",
+        "text": "Który album Michaela Jacksona jest jednym z najlepiej sprzedających się albumów w historii?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Bad"
+          },
+          {
+            "id": "answer-b",
+            "text": "Thriller"
+          },
+          {
+            "id": "answer-c",
+            "text": "Dangerous"
+          },
+          {
+            "id": "answer-d",
+            "text": "Invincible"
+          }
+        ]
+      },
+      {
+        "id": "music-6",
+        "text": "Jak nazywa si? polski kompozytor s?yn?cy z mazurk?w i polonez?w?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Stanis?aw Moniuszko"
+          },
+          {
+            "id": "answer-b",
+            "text": "Fryderyk Chopin"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ignacy Paderewski"
+          },
+          {
+            "id": "answer-d",
+            "text": "Krzysztof Penderecki"
+          }
+        ]
+      },
+      {
+        "id": "music-7",
+        "text": "Kt?ry instrument ma klawisze, m?oteczki i struny?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Saksofon"
+          },
+          {
+            "id": "answer-b",
+            "text": "Gitara"
+          },
+          {
+            "id": "answer-c",
+            "text": "Fortepian"
+          },
+          {
+            "id": "answer-d",
+            "text": "Flet"
+          }
+        ]
+      },
+      {
+        "id": "music-8",
+        "text": "Jak nazywa si? zapis nutowy oznaczaj?cy stopniowe przyspieszanie?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ritardando"
+          },
+          {
+            "id": "answer-b",
+            "text": "Legato"
+          },
+          {
+            "id": "answer-c",
+            "text": "Pizzicato"
+          },
+          {
+            "id": "answer-d",
+            "text": "Accelerando"
+          }
+        ]
+      }
+    ],
+    "literature": [
+      {
+        "id": "literature-1",
+        "text": "Kto napisał Pana Tadeusza?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Adam Mickiewicz"
+          },
+          {
+            "id": "answer-b",
+            "text": "Juliusz Słowacki"
+          },
+          {
+            "id": "answer-c",
+            "text": "Henryk Sienkiewicz"
+          },
+          {
+            "id": "answer-d",
+            "text": "Bolesław Prus"
+          }
+        ]
+      },
+      {
+        "id": "literature-2",
+        "text": "Jak nazywa się detektyw stworzony przez Arthura Conana Doyle'a?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Hercule Poirot"
+          },
+          {
+            "id": "answer-b",
+            "text": "Philip Marlowe"
+          },
+          {
+            "id": "answer-c",
+            "text": "Sherlock Holmes"
+          },
+          {
+            "id": "answer-d",
+            "text": "Komisarz Maigret"
+          }
+        ]
+      },
+      {
+        "id": "literature-3",
+        "text": "W jakiej powieści występuje postać Bilba Bagginsa?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Silmarillion"
+          },
+          {
+            "id": "answer-b",
+            "text": "Opowieści z Narnii"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ziemiomorze"
+          },
+          {
+            "id": "answer-d",
+            "text": "Hobbit"
+          }
+        ]
+      },
+      {
+        "id": "literature-4",
+        "text": "Kto jest autorką powieści Frankenstein?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Jane Austen"
+          },
+          {
+            "id": "answer-b",
+            "text": "Mary Shelley"
+          },
+          {
+            "id": "answer-c",
+            "text": "Virginia Woolf"
+          },
+          {
+            "id": "answer-d",
+            "text": "Emily Bronte"
+          }
+        ]
+      },
+      {
+        "id": "literature-5",
+        "text": "Który pisarz stworzył Rok 1984?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "George Orwell"
+          },
+          {
+            "id": "answer-b",
+            "text": "Aldous Huxley"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ray Bradbury"
+          },
+          {
+            "id": "answer-d",
+            "text": "Isaac Asimov"
+          }
+        ]
+      },
+      {
+        "id": "literature-6",
+        "text": "Kto napisa? Lalk??",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Eliza Orzeszkowa"
+          },
+          {
+            "id": "answer-b",
+            "text": "Maria Konopnicka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Adam Mickiewicz"
+          },
+          {
+            "id": "answer-d",
+            "text": "Boles?aw Prus"
+          }
+        ]
+      },
+      {
+        "id": "literature-7",
+        "text": "Jak nazywa si? autor Ma?ego Ksi?cia?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Antoine de Saint-Exup?ry"
+          },
+          {
+            "id": "answer-b",
+            "text": "Jules Verne"
+          },
+          {
+            "id": "answer-c",
+            "text": "Victor Hugo"
+          },
+          {
+            "id": "answer-d",
+            "text": "Albert Camus"
+          }
+        ]
+      },
+      {
+        "id": "literature-8",
+        "text": "W kt?rej epoce literackiej tworzy? William Szekspir?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Romantyzm"
+          },
+          {
+            "id": "answer-b",
+            "text": "Renesans"
+          },
+          {
+            "id": "answer-c",
+            "text": "Pozytywizm"
+          },
+          {
+            "id": "answer-d",
+            "text": "M?oda Polska"
+          }
+        ]
+      }
+    ],
+    "food": [
+      {
+        "id": "food-1",
+        "text": "Z którego kraju pochodzi pizza margherita?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Francja"
+          },
+          {
+            "id": "answer-b",
+            "text": "Hiszpania"
+          },
+          {
+            "id": "answer-c",
+            "text": "Włochy"
+          },
+          {
+            "id": "answer-d",
+            "text": "Grecja"
+          }
+        ]
+      },
+      {
+        "id": "food-2",
+        "text": "Jaki składnik jest podstawą hummusu?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ciecierzyca"
+          },
+          {
+            "id": "answer-b",
+            "text": "Soczewica"
+          },
+          {
+            "id": "answer-c",
+            "text": "Ryż"
+          },
+          {
+            "id": "answer-d",
+            "text": "Kukurydza"
+          }
+        ]
+      },
+      {
+        "id": "food-3",
+        "text": "Która przyprawa nadaje curry intensywnie żółty kolor?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Cynamon"
+          },
+          {
+            "id": "answer-b",
+            "text": "Kurkuma"
+          },
+          {
+            "id": "answer-c",
+            "text": "Bazylia"
+          },
+          {
+            "id": "answer-d",
+            "text": "Kminek"
+          }
+        ]
+      },
+      {
+        "id": "food-4",
+        "text": "Jak nazywa się japońska potrawa z ryżu i surowej ryby?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ramen"
+          },
+          {
+            "id": "answer-b",
+            "text": "Tempura"
+          },
+          {
+            "id": "answer-c",
+            "text": "Udon"
+          },
+          {
+            "id": "answer-d",
+            "text": "Sushi"
+          }
+        ]
+      },
+      {
+        "id": "food-5",
+        "text": "Który ser tradycyjnie używany jest w sałatce caprese?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Feta"
+          },
+          {
+            "id": "answer-b",
+            "text": "Cheddar"
+          },
+          {
+            "id": "answer-c",
+            "text": "Mozzarella"
+          },
+          {
+            "id": "answer-d",
+            "text": "Gouda"
+          }
+        ]
+      },
+      {
+        "id": "food-6",
+        "text": "Z czego tradycyjnie robi si? guacamole?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Z groszku"
+          },
+          {
+            "id": "answer-b",
+            "text": "Z og?rka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Z awokado"
+          },
+          {
+            "id": "answer-d",
+            "text": "Z broku?u"
+          }
+        ]
+      },
+      {
+        "id": "food-7",
+        "text": "Kt?ry makaron ma kszta?t ma?ych rurek?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Farfalle"
+          },
+          {
+            "id": "answer-b",
+            "text": "Penne"
+          },
+          {
+            "id": "answer-c",
+            "text": "Tagliatelle"
+          },
+          {
+            "id": "answer-d",
+            "text": "Lasagne"
+          }
+        ]
+      },
+      {
+        "id": "food-8",
+        "text": "Jak nazywa si? francuski deser z karmelizowan? cukrow? skorupk??",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Cr?me br?l?e"
+          },
+          {
+            "id": "answer-b",
+            "text": "Tiramisu"
+          },
+          {
+            "id": "answer-c",
+            "text": "Baklava"
+          },
+          {
+            "id": "answer-d",
+            "text": "Panna cotta"
+          }
+        ]
+      }
+    ],
+    "nature": [
+      {
+        "id": "nature-1",
+        "text": "Które drzewo produkuje żołędzie?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Brzoza"
+          },
+          {
+            "id": "answer-b",
+            "text": "Dąb"
+          },
+          {
+            "id": "answer-c",
+            "text": "Sosna"
+          },
+          {
+            "id": "answer-d",
+            "text": "Topola"
+          }
+        ]
+      },
+      {
+        "id": "nature-2",
+        "text": "Jak nazywa się proces wytwarzania tlenu przez rośliny z udziałem światła?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Fotosynteza"
+          },
+          {
+            "id": "answer-b",
+            "text": "Fermentacja"
+          },
+          {
+            "id": "answer-c",
+            "text": "Transpiracja"
+          },
+          {
+            "id": "answer-d",
+            "text": "Osmoza"
+          }
+        ]
+      },
+      {
+        "id": "nature-3",
+        "text": "Który ssak potrafi aktywnie latać?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Wiewiórka latająca"
+          },
+          {
+            "id": "answer-b",
+            "text": "Lotopałanka"
+          },
+          {
+            "id": "answer-c",
+            "text": "Nietoperz"
+          },
+          {
+            "id": "answer-d",
+            "text": "Lemur"
+          }
+        ]
+      },
+      {
+        "id": "nature-4",
+        "text": "Który gaz dominuje w atmosferze Ziemi?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Tlen"
+          },
+          {
+            "id": "answer-b",
+            "text": "Dwutlenek węgla"
+          },
+          {
+            "id": "answer-c",
+            "text": "Argon"
+          },
+          {
+            "id": "answer-d",
+            "text": "Azot"
+          }
+        ]
+      },
+      {
+        "id": "nature-5",
+        "text": "Jak nazywa się największa pustynia gorąca na Ziemi?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Sahara"
+          },
+          {
+            "id": "answer-b",
+            "text": "Gobi"
+          },
+          {
+            "id": "answer-c",
+            "text": "Atakama"
+          },
+          {
+            "id": "answer-d",
+            "text": "Kalahari"
+          }
+        ]
+      },
+      {
+        "id": "nature-6",
+        "text": "Jak nazywa si? m?oda forma ?aby ?yj?ca w wodzie?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Larwa"
+          },
+          {
+            "id": "answer-b",
+            "text": "Narybek"
+          },
+          {
+            "id": "answer-c",
+            "text": "Poczwarka"
+          },
+          {
+            "id": "answer-d",
+            "text": "Kijanka"
+          }
+        ]
+      },
+      {
+        "id": "nature-7",
+        "text": "Kt?ra warstwa atmosfery zawiera warstw? ozonow??",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Troposfera"
+          },
+          {
+            "id": "answer-b",
+            "text": "Stratosfera"
+          },
+          {
+            "id": "answer-c",
+            "text": "Mezosfera"
+          },
+          {
+            "id": "answer-d",
+            "text": "Egzosfera"
+          }
+        ]
+      },
+      {
+        "id": "nature-8",
+        "text": "Jak nazywa si? nauka zajmuj?ca si? grzybami?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Ornitologia"
+          },
+          {
+            "id": "answer-b",
+            "text": "Entomologia"
+          },
+          {
+            "id": "answer-c",
+            "text": "Mykologia"
+          },
+          {
+            "id": "answer-d",
+            "text": "Botanika"
+          }
+        ]
+      }
+    ],
+    "gaming": [
+      {
+        "id": "gaming-1",
+        "text": "Która firma stworzyła konsolę PlayStation?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Nintendo"
+          },
+          {
+            "id": "answer-b",
+            "text": "Sony"
+          },
+          {
+            "id": "answer-c",
+            "text": "Microsoft"
+          },
+          {
+            "id": "answer-d",
+            "text": "Sega"
+          }
+        ]
+      },
+      {
+        "id": "gaming-2",
+        "text": "W której grze buduje się konstrukcje z bloków w świecie voxelowym?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Minecraft"
+          },
+          {
+            "id": "answer-b",
+            "text": "Portal"
+          },
+          {
+            "id": "answer-c",
+            "text": "Overwatch"
+          },
+          {
+            "id": "answer-d",
+            "text": "Rocket League"
+          }
+        ]
+      },
+      {
+        "id": "gaming-3",
+        "text": "Jak nazywa się planszowa gra polegająca na kupowaniu ulic i pobieraniu czynszu?",
+        "correctAnswerId": "answer-d",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Scrabble"
+          },
+          {
+            "id": "answer-b",
+            "text": "Ryzyko"
+          },
+          {
+            "id": "answer-c",
+            "text": "Carcassonne"
+          },
+          {
+            "id": "answer-d",
+            "text": "Monopoly"
+          }
+        ]
+      },
+      {
+        "id": "gaming-4",
+        "text": "Która seria gier przedstawia konflikt Asasynów i Templariuszy?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Far Cry"
+          },
+          {
+            "id": "answer-b",
+            "text": "The Elder Scrolls"
+          },
+          {
+            "id": "answer-c",
+            "text": "Assassin's Creed"
+          },
+          {
+            "id": "answer-d",
+            "text": "Mass Effect"
+          }
+        ]
+      },
+      {
+        "id": "gaming-5",
+        "text": "Który gatunek opisuje gry takie jak StarCraft i Age of Empires?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Strategia czasu rzeczywistego"
+          },
+          {
+            "id": "answer-b",
+            "text": "Roguelike"
+          },
+          {
+            "id": "answer-c",
+            "text": "Visual novel"
+          },
+          {
+            "id": "answer-d",
+            "text": "Symulator sportowy"
+          }
+        ]
+      },
+      {
+        "id": "gaming-6",
+        "text": "Kt?ra firma stworzy?a seri? Mario?",
+        "correctAnswerId": "answer-a",
+        "difficulty": "Easy",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Nintendo"
+          },
+          {
+            "id": "answer-b",
+            "text": "Sony"
+          },
+          {
+            "id": "answer-c",
+            "text": "Valve"
+          },
+          {
+            "id": "answer-d",
+            "text": "Ubisoft"
+          }
+        ]
+      },
+      {
+        "id": "gaming-7",
+        "text": "W kt?rej grze wyst?puj? portale tworzone specjalnym urz?dzeniem?",
+        "correctAnswerId": "answer-c",
+        "difficulty": "Medium",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Half-Life"
+          },
+          {
+            "id": "answer-b",
+            "text": "Doom"
+          },
+          {
+            "id": "answer-c",
+            "text": "Portal"
+          },
+          {
+            "id": "answer-d",
+            "text": "Halo"
+          }
+        ]
+      },
+      {
+        "id": "gaming-8",
+        "text": "Jak nazywa si? plansz?wka, w kt?rej gracze uk?adaj? kafelki ?redniowiecznego krajobrazu?",
+        "correctAnswerId": "answer-b",
+        "difficulty": "Hard",
+        "timeLimitSeconds": 12,
+        "answers": [
+          {
+            "id": "answer-a",
+            "text": "Catan"
+          },
+          {
+            "id": "answer-b",
+            "text": "Carcassonne"
+          },
+          {
+            "id": "answer-c",
+            "text": "Dixit"
+          },
+          {
+            "id": "answer-d",
+            "text": "Splendor"
+          }
+        ]
+      }
+    ]
+  }
+}

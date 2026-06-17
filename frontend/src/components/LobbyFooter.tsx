@@ -55,7 +55,7 @@ function LobbyFooter({
                 label="Questions"
                 value={settings.questionsPerRound}
                 min={1}
-                max={5}
+                max={8}
                 disabled={isBusy}
                 onChange={(value) => handleSettingChange("questionsPerRound", value)}
               />

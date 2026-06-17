@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import LobbyHeader from "../components/LobbyHeader";
 import FinalStandingsList from "../components/game-over/FinalStandingsList";
 import GameOverActions from "../components/game-over/GameOverActions";
@@ -10,16 +11,34 @@ import { mapLeaderboardToFinalStandings } from "../game/gameUiMappers";
 
 function GameOverPage() {
   const navigate = useNavigate();
-  const { snapshot, localPlayer, clearSession } = useGameSession();
+  const { snapshot, localPlayer, isHost, leaveRoom, returnToLobby } =
+    useGameSession();
+  const [pendingAction, setPendingAction] = useState<
+    "leave" | "return-to-lobby" | null
+  >(null);
   const standings = mapLeaderboardToFinalStandings(
     snapshot?.leaderboard ?? [],
     snapshot?.players ?? [],
   );
   const winner = standings[0];
 
-  function handleLeave() {
-    clearSession();
-    navigate("/");
+  async function handleLeave() {
+    setPendingAction("leave");
+    try {
+      await leaveRoom();
+      navigate("/");
+    } catch {
+      setPendingAction(null);
+    }
+  }
+
+  async function handleReturnToLobby() {
+    setPendingAction("return-to-lobby");
+    try {
+      await returnToLobby();
+    } catch {
+      setPendingAction(null);
+    }
   }
 
   if (!snapshot || !winner) {
@@ -41,7 +60,13 @@ function GameOverPage() {
           <GameOverHero />
           <WinnerCard winner={winner} />
           <FinalStandingsList standings={standings} />
-          <GameOverActions onLeave={handleLeave} />
+          <GameOverActions
+            canReturnToLobby={isHost}
+            isBusy={pendingAction !== null}
+            pendingAction={pendingAction}
+            onExitToMenu={handleLeave}
+            onReturnToLobby={handleReturnToLobby}
+          />
         </section>
       </div>
     </main>

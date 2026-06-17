@@ -15,8 +15,10 @@ export type GameHubStatus =
 
 export const gameHubEvents = [
   "PlayerJoined",
+  "PlayerLeft",
   "PlayerReadyChanged",
   "RoomSettingsChanged",
+  "ReturnedToLobby",
   "GameStarted",
   "CategorySelectionStarted",
   "CategoryVoteUpdated",

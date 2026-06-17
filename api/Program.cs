@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureHttpJsonOptions(ConfigureJson);
 builder.Services.Configure<JsonOptions>(ConfigureJson);
 builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisOptions.SectionName));
+builder.Services.Configure<QuestionBankOptions>(builder.Configuration.GetSection(QuestionBankOptions.SectionName));
 builder.Services.AddExceptionHandler<GameExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -43,10 +44,11 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(serviceProvider =>
 });
 
 builder.Services.AddSingleton<IRoomStore, RedisRoomStore>();
-builder.Services.AddSingleton<IQuestionBank, SeededQuestionBank>();
+builder.Services.AddSingleton<IQuestionBank, JsonQuestionBank>();
 builder.Services.AddSingleton<GameService>();
 
 var app = builder.Build();
+_ = app.Services.GetRequiredService<IQuestionBank>();
 
 app.UseExceptionHandler();
 app.UseHttpsRedirection();

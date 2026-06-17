@@ -9,6 +9,13 @@ public enum RoomState
     Finished
 }
 
+public enum QuestionDifficulty
+{
+    Easy,
+    Medium,
+    Hard
+}
+
 public sealed record GameSettings
 {
     public int QuestionsPerRound { get; init; } = 5;
@@ -42,12 +49,20 @@ public sealed record Answer
     public required string Text { get; init; }
 }
 
+public sealed record AnswerDefinition
+{
+    public required string Id { get; init; }
+    public required string Text { get; init; }
+}
+
 public sealed record Question
 {
     public required string Id { get; init; }
     public required string CategoryId { get; init; }
     public required string Text { get; init; }
     public required IReadOnlyList<Answer> Answers { get; init; }
+    public QuestionDifficulty Difficulty { get; init; } = QuestionDifficulty.Medium;
+    public int PointsPool { get; init; }
     public int TimeLimitSeconds { get; init; }
 }
 
@@ -56,8 +71,16 @@ public sealed record QuestionDefinition
     public required string Id { get; init; }
     public required string CategoryId { get; init; }
     public required string Text { get; init; }
-    public required IReadOnlyList<Answer> Answers { get; init; }
+    public required IReadOnlyList<AnswerDefinition> Answers { get; init; }
     public required string CorrectAnswerId { get; init; }
+    public QuestionDifficulty Difficulty { get; init; } = QuestionDifficulty.Medium;
+    public int PointsPool => Difficulty switch
+    {
+        QuestionDifficulty.Easy => 700,
+        QuestionDifficulty.Medium => 1000,
+        QuestionDifficulty.Hard => 1500,
+        _ => 1000
+    };
     public int TimeLimitSeconds { get; init; }
 
     public Question ToQuestion(int timeLimitSeconds)
@@ -67,7 +90,16 @@ public sealed record QuestionDefinition
             Id = Id,
             CategoryId = CategoryId,
             Text = Text,
-            Answers = Answers,
+            Answers = Answers
+                .Select((answer, index) => new Answer
+                {
+                    Id = answer.Id,
+                    Letter = index < 26 ? ((char)('A' + index)).ToString() : (index + 1).ToString(),
+                    Text = answer.Text
+                })
+                .ToList(),
+            Difficulty = Difficulty,
+            PointsPool = PointsPool,
             TimeLimitSeconds = timeLimitSeconds
         };
     }

@@ -163,14 +163,14 @@ W środowisku developerskim Redis może działać lokalnie, np. w Dockerze. W ś
 
 ```json
 {
-  "questionsPerRound": 5,
+  "questionsPerRound": 8,
   "roundsCount": 3,
   "answerTimeSeconds": 12,
   "maxPlayers": 12
 }
 ```
 
-`questionsPerRound` określa liczbę pytań w jednej kategorii. `roundsCount` określa liczbę kategorii/rund w całej grze.
+`questionsPerRound` określa liczbę pytań w jednej kategorii i może wynosić od 1 do 8. `roundsCount` określa liczbę kategorii/rund w całej grze.
 
 ### Category
 
@@ -190,11 +190,14 @@ W środowisku developerskim Redis może działać lokalnie, np. w Dockerze. W ś
   "categoryId": "history",
   "text": "Które wydarzenie rozpoczęło II wojnę światową?",
   "answers": [],
+  "difficulty": "Medium",
+  "pointsPool": 1000,
   "timeLimitSeconds": 12
 }
 ```
 
 Pytanie wysyłane do graczy w stanie `Question` nie powinno zawierać `correctAnswerId`.
+`difficulty` przyjmuje wartości `Easy`, `Medium` albo `Hard`. Pula punktów wynosi odpowiednio `700`, `1000` albo `1500` i jest dzielona między graczy, którzy odpowiedzieli poprawnie.
 
 ### Answer
 
@@ -293,7 +296,7 @@ Przykładowe body:
 ```json
 {
   "hostPlayerId": "player-host-id",
-  "questionsPerRound": 5,
+  "questionsPerRound": 8,
   "roundsCount": 3
 }
 ```
@@ -362,6 +365,26 @@ Przykładowe body:
 
 Po zapisaniu odpowiedzi API rozgłasza `AnswerSubmitted` bez ujawniania odpowiedzi gracza innym klientom, chyba że UI będzie tego wymagało.
 
+### `DELETE /api/rooms/{code}/players/{playerId}`
+
+Usuwa gracza z pokoju w stanie `Lobby` albo `Finished`.
+
+Jeśli wychodzący gracz jest hostem, API przekazuje rolę hosta pierwszemu pozostałemu graczowi i rozgłasza `PlayerLeft`.
+
+### `POST /api/rooms/{code}/return-to-lobby`
+
+Przenosi zakończoną grę ze stanu `Finished` z powrotem do `Lobby`. Endpoint jest dostępny tylko dla aktualnego hosta.
+
+Przykładowe body:
+
+```json
+{
+  "playerId": "player-host-id"
+}
+```
+
+Po powrocie API zeruje wynik gry, czyści bieżące pytania i odpowiedzi, zostawia ustawienia pokoju oraz rozgłasza `ReturnedToLobby`.
+
 ### `GET /api/rooms/{code}`
 
 Zwraca aktualny snapshot pokoju. Endpoint jest przydatny przy odświeżeniu strony, ponownym połączeniu klienta albo dołączeniu obserwatora.
@@ -381,8 +404,10 @@ Zdarzenia wysyłane przez API:
 | Zdarzenie                  | Kiedy jest wysyłane                            |
 | -------------------------- | ---------------------------------------------- |
 | `PlayerJoined`             | Po dołączeniu gracza do pokoju.                |
+| `PlayerLeft`               | Po opuszczeniu pokoju przez gracza.            |
 | `PlayerReadyChanged`       | Po zmianie gotowości gracza.                   |
 | `RoomSettingsChanged`      | Po zmianie ustawień przez hosta.               |
+| `ReturnedToLobby`          | Po powrocie zakończonej gry do lobby.          |
 | `GameStarted`              | Po starcie gry.                                |
 | `CategorySelectionStarted` | Gdy rozpoczyna się wybór kategorii.            |
 | `CategoryVoteUpdated`      | Po głosie gracza na kategorię.                 |

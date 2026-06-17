@@ -12,10 +12,11 @@ public sealed class GameService
 {
     private const string RoomCodeAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     private const int RoomCodeLength = 4;
+    private const string AnswerLetterAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private const int CategoryChoicesPerRound = 3;
     private const int CategorySelectionSeconds = 10;
     private const int QuestionIntroSeconds = 5;
     private const int ResultDisplaySeconds = 10;
-    private const int QuestionPointsPool = 1000;
 
     private readonly IRoomStore _roomStore;
     private readonly IQuestionBank _questionBank;
@@ -117,6 +118,128 @@ public sealed class GameService
         return new JoinRoomResponse(room.Code, playerId, room.State);
     }
 
+    public async Task<Room> LeaveRoomAsync(
+        string code,
+        string playerId,
+        CancellationToken cancellationToken)
+    {
+        var room = await _roomStore.UpdateAsync(
+            NormalizeRoomCode(code),
+            (current, _) =>
+            {
+                if (current.State is not RoomState.Lobby and not RoomState.Finished)
+                {
+                    throw new GameException(
+                        StatusCodes.Status409Conflict,
+                        "invalid_room_state",
+                        $"Akcja niedozwolona w stanie {current.State}.");
+                }
+
+                var leavingPlayer = EnsurePlayer(current, playerId);
+                var players = current.Players
+                    .Where(player => !string.Equals(player.Id, playerId, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                var hostPlayerId = current.HostPlayerId;
+                if (players.Count == 0)
+                {
+                    hostPlayerId = string.Empty;
+                }
+                else if (leavingPlayer.IsHost ||
+                    !players.Any(player => string.Equals(player.Id, current.HostPlayerId, StringComparison.OrdinalIgnoreCase)))
+                {
+                    hostPlayerId = players[0].Id;
+                }
+
+                players = ApplyHost(players, hostPlayerId, current.State == RoomState.Lobby);
+                var leaderboard = BuildLeaderboard(players, current.Leaderboard);
+
+                return Task.FromResult(current with
+                {
+                    HostPlayerId = hostPlayerId,
+                    Players = players,
+                    Leaderboard = leaderboard,
+                    CategoryVotes = current.CategoryVotes
+                        .Where(vote => !string.Equals(vote.Key, playerId, StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(vote => vote.Key, vote => vote.Value, StringComparer.OrdinalIgnoreCase),
+                    Answers = current.Answers
+                        .Where(answer => !string.Equals(answer.Key, playerId, StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(answer => answer.Key, answer => answer.Value, StringComparer.OrdinalIgnoreCase)
+                });
+            },
+            cancellationToken);
+
+        await PublishRoomAsync(room.Code, GameEvents.PlayerLeft, room, cancellationToken);
+
+        return room;
+    }
+
+    public async Task<Room> ReturnToLobbyAsync(
+        string code,
+        ReturnToLobbyRequest request,
+        CancellationToken cancellationToken)
+    {
+        var room = await _roomStore.UpdateAsync(
+            NormalizeRoomCode(code),
+            (current, _) =>
+            {
+                EnsureState(current, RoomState.Finished);
+                EnsurePlayer(current, request.PlayerId);
+                EnsureHost(current, request.PlayerId);
+
+                var resetPlayers = current.Players
+                    .Select(player =>
+                    {
+                        var isHost = string.Equals(
+                            player.Id,
+                            current.HostPlayerId,
+                            StringComparison.OrdinalIgnoreCase);
+
+                        return player with
+                        {
+                            IsHost = isHost,
+                            IsReady = isHost,
+                            Score = 0,
+                            Rank = 1
+                        };
+                    })
+                    .ToList();
+
+                var leaderboard = BuildLeaderboard(resetPlayers, []);
+                var rankByPlayer = leaderboard.ToDictionary(
+                    entry => entry.PlayerId,
+                    entry => entry.Rank,
+                    StringComparer.OrdinalIgnoreCase);
+
+                resetPlayers = resetPlayers
+                    .Select(player => player with { Rank = rankByPlayer.GetValueOrDefault(player.Id, 1) })
+                    .ToList();
+
+                return Task.FromResult(current with
+                {
+                    State = RoomState.Lobby,
+                    Categories = _questionBank.Categories,
+                    CurrentRound = 0,
+                    CurrentQuestionIndex = 0,
+                    CurrentCategoryId = null,
+                    CurrentQuestion = null,
+                    LastQuestionResult = null,
+                    Players = resetPlayers,
+                    Leaderboard = leaderboard,
+                    SelectedCategoryIds = [],
+                    CategoryVotes = new Dictionary<string, string>(),
+                    Answers = new Dictionary<string, SubmittedAnswer>(),
+                    QuestionStartedAtUtc = null,
+                    FinishedAtUtc = null
+                });
+            },
+            cancellationToken);
+
+        await PublishRoomAsync(room.Code, GameEvents.ReturnedToLobby, room, cancellationToken);
+
+        return room;
+    }
+
     public async Task<Room> UpdateSettingsAsync(
         string code,
         UpdateRoomSettingsRequest request,
@@ -210,6 +333,7 @@ public sealed class GameService
                 return Task.FromResult(current with
                 {
                     State = RoomState.CategorySelection,
+                    Categories = SelectCategoryChoices([]),
                     CurrentRound = 1,
                     CurrentQuestionIndex = 0,
                     CurrentCategoryId = null,
@@ -243,13 +367,14 @@ public sealed class GameService
                 EnsureState(current, RoomState.CategorySelection);
                 EnsurePlayer(current, request.PlayerId);
 
-                var category = _questionBank.GetCategory(request.CategoryId);
+                var category = current.Categories.FirstOrDefault(category =>
+                    string.Equals(category.Id, request.CategoryId, StringComparison.OrdinalIgnoreCase));
                 if (category is null)
                 {
                     throw new GameException(
                         StatusCodes.Status400BadRequest,
                         "invalid_category",
-                        "Nieprawidlowa kategoria.");
+                        "Kategoria nie jest dostepna w tej rundzie.");
                 }
 
                 var votes = current.CategoryVotes.ToDictionary();
@@ -590,6 +715,7 @@ public sealed class GameService
                         return Task.FromResult(current with
                         {
                             State = RoomState.CategorySelection,
+                            Categories = SelectCategoryChoices(current.SelectedCategoryIds),
                             CurrentRound = current.CurrentRound + 1,
                             CurrentQuestionIndex = 0,
                             CurrentCategoryId = null,
@@ -748,6 +874,27 @@ public sealed class GameService
             .Key;
     }
 
+    private IReadOnlyList<Category> SelectCategoryChoices(IReadOnlyList<string> selectedCategoryIds)
+    {
+        var selectedCategoryIdSet = selectedCategoryIds.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var availableCategories = _questionBank.Categories
+            .Where(category => !selectedCategoryIdSet.Contains(category.Id))
+            .ToList();
+
+        if (availableCategories.Count < CategoryChoicesPerRound)
+        {
+            throw new GameException(
+                StatusCodes.Status500InternalServerError,
+                "question_bank_too_small",
+                "Bank pytan nie ma wystarczajacej liczby kategorii dla liczby rund.");
+        }
+
+        return availableCategories
+            .OrderBy(_ => RandomNumberGenerator.GetInt32(int.MaxValue))
+            .Take(CategoryChoicesPerRound)
+            .ToList();
+    }
+
     private Question GetQuestionFor(string categoryId, int questionIndex, int timeLimitSeconds)
     {
         var questions = _questionBank.GetQuestions(categoryId);
@@ -759,7 +906,29 @@ public sealed class GameService
                 "Bank pytan nie ma wystarczajacej liczby pytan dla kategorii.");
         }
 
-        return questions[questionIndex - 1].ToQuestion(timeLimitSeconds);
+        var question = questions[questionIndex - 1].ToQuestion(timeLimitSeconds);
+        return question with { Answers = ShuffleAnswers(question.Answers) };
+    }
+
+    private static IReadOnlyList<Answer> ShuffleAnswers(IReadOnlyList<Answer> answers)
+    {
+        var shuffledAnswers = answers.ToList();
+        for (var index = shuffledAnswers.Count - 1; index > 0; index--)
+        {
+            var swapIndex = RandomNumberGenerator.GetInt32(index + 1);
+            (shuffledAnswers[index], shuffledAnswers[swapIndex]) = (shuffledAnswers[swapIndex], shuffledAnswers[index]);
+        }
+
+        return shuffledAnswers
+            .Select((answer, index) => answer with { Letter = CreateAnswerLetter(index) })
+            .ToList();
+    }
+
+    private static string CreateAnswerLetter(int index)
+    {
+        return index < AnswerLetterAlphabet.Length
+            ? AnswerLetterAlphabet[index].ToString()
+            : (index + 1).ToString();
     }
 
     private static IReadOnlyDictionary<string, int> BuildVoteCounts(Room room)
@@ -768,6 +937,24 @@ public sealed class GameService
             .Values
             .GroupBy(categoryId => categoryId, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(group => group.Key, group => group.Count(), StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static List<Player> ApplyHost(
+        IReadOnlyList<Player> players,
+        string hostPlayerId,
+        bool markHostReady)
+    {
+        return players
+            .Select(player =>
+            {
+                var isHost = string.Equals(player.Id, hostPlayerId, StringComparison.OrdinalIgnoreCase);
+                return player with
+                {
+                    IsHost = isHost,
+                    IsReady = markHostReady && isHost ? true : player.IsReady
+                };
+            })
+            .ToList();
     }
 
     private static IReadOnlyList<ScoreEntry> BuildLeaderboard(
@@ -833,7 +1020,7 @@ public sealed class GameService
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var pointsPerCorrectPlayer = correctPlayerIds.Count == 0
             ? 0
-            : QuestionPointsPool / correctPlayerIds.Count;
+            : questionDefinition.PointsPool / correctPlayerIds.Count;
 
         return room.Players.ToDictionary(
             player => player.Id,
@@ -874,12 +1061,12 @@ public sealed class GameService
 
     private static void ValidateSettings(GameSettings settings, int currentPlayersCount)
     {
-        if (settings.QuestionsPerRound is < 1 or > 5)
+        if (settings.QuestionsPerRound is < 1 or > 8)
         {
             throw new GameException(
                 StatusCodes.Status400BadRequest,
                 "invalid_questions_per_round",
-                "Liczba pytan w rundzie musi byc od 1 do 5.");
+                "Liczba pytan w rundzie musi byc od 1 do 8.");
         }
 
         if (settings.RoundsCount is < 1 or > 5)

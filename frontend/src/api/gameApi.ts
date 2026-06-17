@@ -4,6 +4,7 @@ import type {
   CreateRoomResponse,
   JoinRoomRequest,
   JoinRoomResponse,
+  ReturnToLobbyRequest,
   RoomSnapshot,
   SetReadyRequest,
   StartGameRequest,
@@ -46,6 +47,17 @@ export async function joinRoom(roomCode: string, request: JoinRoomRequest) {
   });
 }
 
+export async function leaveRoom(roomCode: string, playerId: string) {
+  return send<RoomSnapshot>(
+    `/api/rooms/${encodeURIComponent(roomCode)}/players/${encodeURIComponent(
+      playerId,
+    )}`,
+    {
+      method: "DELETE",
+    },
+  );
+}
+
 export async function getRoom(roomCode: string) {
   return send<RoomSnapshot>(`/api/rooms/${encodeURIComponent(roomCode)}`);
 }
@@ -81,6 +93,19 @@ export async function startGame(roomCode: string, request: StartGameRequest) {
     method: "POST",
     body: request,
   });
+}
+
+export async function returnToLobby(
+  roomCode: string,
+  request: ReturnToLobbyRequest,
+) {
+  return send<RoomSnapshot>(
+    `/api/rooms/${encodeURIComponent(roomCode)}/return-to-lobby`,
+    {
+      method: "POST",
+      body: request,
+    },
+  );
 }
 
 export async function voteCategory(roomCode: string, request: CategoryVoteRequest) {

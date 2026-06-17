@@ -119,9 +119,7 @@ function QuestionPage() {
                 ? "Czytaj pytanie"
                 : selectedAnswerId
                 ? "Odpowiedz zapisana"
-                : `Pytanie ${snapshot.currentQuestionIndex} / ${
-                    snapshot.settings.questionsPerRound * snapshot.settings.roundsCount
-                  }`
+                : `Pytanie ${snapshot.currentQuestionIndex} / ${snapshot.settings.questionsPerRound}`
             }
             question={question.text}
             isActive={areAnswersVisible}

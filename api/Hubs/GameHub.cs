@@ -5,8 +5,10 @@ namespace PartyQuiz.Api.Hubs;
 public static class GameEvents
 {
     public const string PlayerJoined = "PlayerJoined";
+    public const string PlayerLeft = "PlayerLeft";
     public const string PlayerReadyChanged = "PlayerReadyChanged";
     public const string RoomSettingsChanged = "RoomSettingsChanged";
+    public const string ReturnedToLobby = "ReturnedToLobby";
     public const string GameStarted = "GameStarted";
     public const string CategorySelectionStarted = "CategorySelectionStarted";
     public const string CategoryVoteUpdated = "CategoryVoteUpdated";

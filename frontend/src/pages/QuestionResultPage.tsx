@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import LobbyHeader from "../components/LobbyHeader";
-import CorrectAnswerCard from "../components/question-result/CorrectAnswerCard";
+import AnswerResultCard from "../components/question-result/AnswerResultCard";
 import NextQuestionProgress from "../components/question-result/NextQuestionProgress";
 import QuestionResultBackground from "../components/question-result/QuestionResultBackground";
 import RoundLeadersList from "../components/question-result/RoundLeadersList";
@@ -12,7 +12,7 @@ import { mapAnswers, mapLeaderboardToRoundLeaders } from "../game/gameUiMappers"
 const nextQuestionSeconds = 10;
 
 function QuestionResultPage() {
-  const { snapshot, localPlayer } = useGameSession();
+  const { snapshot, localPlayer, session } = useGameSession();
   const [secondsLeft, setSecondsLeft] = useState(nextQuestionSeconds);
 
   useEffect(() => {
@@ -27,18 +27,32 @@ function QuestionResultPage() {
     return null;
   }
 
-  const mappedAnswers = mapAnswers(snapshot.currentQuestion?.answers ?? []);
-  const correctAnswer =
-    mappedAnswers.find((answer) => {
-      const sourceAnswer = snapshot.currentQuestion?.answers.find(
-        (candidate) => candidate.letter === answer.letter,
-      );
-      return sourceAnswer?.id === snapshot.lastQuestionResult?.correctAnswerId;
-    }) ?? {
-      letter: "",
-      answer: snapshot.lastQuestionResult.correctAnswerText,
-      tone: "tertiary" as const,
-    };
+  const sourceAnswers = snapshot.currentQuestion?.answers ?? [];
+  const mappedAnswers = mapAnswers(sourceAnswers);
+  const localPlayerId = localPlayer?.id ?? session?.playerId;
+  const localPlayerResult = snapshot.lastQuestionResult.playerResults.find(
+    (result) => result.playerId === localPlayerId,
+  );
+
+  function getMappedAnswer(answerId: string | null | undefined) {
+    const answerIndex = sourceAnswers.findIndex(
+      (answer) => answer.id === answerId,
+    );
+
+    return answerIndex >= 0 ? mappedAnswers[answerIndex] : null;
+  }
+
+  const selectedAnswer = getMappedAnswer(localPlayerResult?.selectedAnswerId) ?? {
+    letter: "",
+    answer: "No answer selected",
+    tone: "error" as const,
+  };
+  const correctAnswer = getMappedAnswer(snapshot.lastQuestionResult.correctAnswerId) ?? {
+    letter: "",
+    answer: snapshot.lastQuestionResult.correctAnswerText,
+    tone: "tertiary" as const,
+  };
+  const isCorrect = localPlayerResult?.isCorrect ?? false;
   const leaders = mapLeaderboardToRoundLeaders(
     snapshot.lastQuestionResult.leaderboard,
     snapshot.players,
@@ -64,12 +78,14 @@ function QuestionResultPage() {
         >
           <RoundResultHeading
             questionIndex={snapshot.currentQuestionIndex}
-            totalQuestions={
-              snapshot.settings.questionsPerRound * snapshot.settings.roundsCount
-            }
+            totalQuestions={snapshot.settings.questionsPerRound}
           />
 
-          <CorrectAnswerCard answer={correctAnswer} />
+          <AnswerResultCard
+            answer={selectedAnswer}
+            correctAnswer={correctAnswer}
+            isCorrect={isCorrect}
+          />
 
           <RoundLeadersList leaders={leaders} />
         </motion.section>

@@ -47,6 +47,11 @@ public sealed record SubmitAnswerRequest
     public int AnsweredAtMs { get; init; }
 }
 
+public sealed record ReturnToLobbyRequest
+{
+    public required string PlayerId { get; init; }
+}
+
 public sealed record CreateRoomResponse(string RoomCode, string PlayerId, RoomState State);
 
 public sealed record JoinRoomResponse(string RoomCode, string PlayerId, RoomState State);

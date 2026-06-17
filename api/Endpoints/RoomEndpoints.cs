@@ -28,6 +28,16 @@ public static class RoomEndpoints
             return Results.Ok(await gameService.JoinRoomAsync(code, request, cancellationToken));
         });
 
+        rooms.MapDelete("/{code}/players/{playerId}", async (
+            string code,
+            string playerId,
+            GameService gameService,
+            CancellationToken cancellationToken) =>
+        {
+            return Results.Ok(RoomSnapshot.FromRoom(
+                await gameService.LeaveRoomAsync(code, playerId, cancellationToken)));
+        });
+
         rooms.MapPatch("/{code}/settings", async (
             string code,
             UpdateRoomSettingsRequest request,
@@ -57,6 +67,16 @@ public static class RoomEndpoints
         {
             return Results.Ok(RoomSnapshot.FromRoom(
                 await gameService.StartGameAsync(code, request, cancellationToken)));
+        });
+
+        rooms.MapPost("/{code}/return-to-lobby", async (
+            string code,
+            ReturnToLobbyRequest request,
+            GameService gameService,
+            CancellationToken cancellationToken) =>
+        {
+            return Results.Ok(RoomSnapshot.FromRoom(
+                await gameService.ReturnToLobbyAsync(code, request, cancellationToken)));
         });
 
         rooms.MapPost("/{code}/category-votes", async (
