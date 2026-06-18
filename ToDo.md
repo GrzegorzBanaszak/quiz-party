@@ -1,5 +1,5 @@
 - [x] 1. Dodanie większej listy pytań około 50 na kategorie
-- [ ] 2. Dodanie aby pytania były losowane dla danej kategorii.
+- [x] 2. Dodanie aby pytania były losowane dla danej kategorii.
 - [ ] 3. Dodanie specjalnych zagrywek z 3 kategorii
 
 - bustery które daja graczowi dodatkowe punkty za prawidłową odpowiedz , więcej czasu

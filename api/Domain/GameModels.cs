@@ -156,6 +156,7 @@ public sealed record Room
     public int CurrentRound { get; init; }
     public int CurrentQuestionIndex { get; init; }
     public string? CurrentCategoryId { get; init; }
+    public IReadOnlyList<string> CurrentQuestionIds { get; init; } = [];
     public Question? CurrentQuestion { get; init; }
     public QuestionResult? LastQuestionResult { get; init; }
     public IReadOnlyList<ScoreEntry> Leaderboard { get; init; } = [];

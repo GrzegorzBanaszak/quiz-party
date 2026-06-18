@@ -1,0 +1,356 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quiz Clash - Target Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#b50036",
+                    "tertiary-container": "#00a74b",
+                    "on-surface-variant": "#c7c4d7",
+                    "on-tertiary-fixed-variant": "#005321",
+                    "tertiary-fixed": "#6bff8f",
+                    "surface-container-highest": "#34343d",
+                    "surface-bright": "#393841",
+                    "secondary-fixed": "#ffdadb",
+                    "outline": "#908fa0",
+                    "surface-dim": "#13131b",
+                    "primary-container": "#8083ff",
+                    "on-secondary-fixed-variant": "#92002a",
+                    "on-primary-container": "#0d0096",
+                    "secondary-fixed-dim": "#ffb2b7",
+                    "on-tertiary-container": "#003111",
+                    "on-error": "#690005",
+                    "surface-container-high": "#292932",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#494bd6",
+                    "primary-fixed": "#e1e0ff",
+                    "outline-variant": "#464554",
+                    "secondary": "#ffb2b7",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "inverse-surface": "#e4e1ed",
+                    "tertiary-fixed-dim": "#4ae176",
+                    "surface": "#13131b",
+                    "background": "#13131b",
+                    "on-surface": "#e4e1ed",
+                    "on-secondary-container": "#ffc2c4",
+                    "on-primary-fixed": "#07006c",
+                    "surface-container": "#1f1f27",
+                    "inverse-on-surface": "#303038",
+                    "surface-variant": "#34343d",
+                    "surface-tint": "#c0c1ff",
+                    "tertiary": "#4ae176",
+                    "on-tertiary-fixed": "#002109",
+                    "on-tertiary": "#003915",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed": "#40000d",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-secondary": "#67001b",
+                    "on-background": "#e4e1ed",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#0d0d15",
+                    "surface-container-low": "#1b1b23",
+                    "primary": "#c0c1ff",
+                    "on-primary": "#1000a9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "48px",
+                    "unit": "4px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-md": "24px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "label-caps": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .vibrant-glow {
+            box-shadow: 0 0 15px rgba(192, 193, 255, 0.3);
+        }
+        .selection-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .selection-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(192, 193, 255, 0.4);
+            border-color: #c0c1ff;
+        }
+        .timer-gradient {
+            background: linear-gradient(90deg, #c0c1ff 0%, #ffb2b7 100%);
+        }
+    </style>
+<style><br>            @keyframes float {<br>                0% { transform: translateY(0) translateX(0); opacity: 0; }<br>                50% { opacity: 1; }<br>                100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }<br>            }<br>        </style></head>
+<body class="bg-background text-on-background font-body-lg min-h-screen overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="bg-surface/80 backdrop-blur-md dark:bg-surface/80 border-b border-white/10 shadow-lg shadow-primary/20 docked full-width top-0 z-50 fixed">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-container-max mx-auto">
+<h1 class="font-display-lg text-display-lg-mobile tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(192,193,255,0.5)]">Quiz Clash</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">settings</button>
+<button class="material-symbols-outlined text-primary hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-200">help</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary/50 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A futuristic 3D avatar profile picture of a gamer with glowing neon blue highlights on their headset and metallic silver skin. The background is a dark, atmospheric purple void with subtle floating digital data fragments. The style is ultra-high-definition digital art, matching the Quiz Clash vibrant modernism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHZxn_5PNdMg4JXfTFdkfd5jy8PFhqLsFPoYIlg85951B30hLZTLe_9cQ9of4I82x5YdlIJTUw4pgQNrEyTtaH8_EXihsxboBwgBL6F9b-PegOuyuAo4qRVBRirmRz0S1hOydhI4quGJVTGvZR0Y_874U5vIB_sVkhjI1o3IPDjiA4fixn07hlliKESuGL2RyB6bXm1DOkgql8UaTIyxSWQnvLRKGlruNeuCcXEU7mZUqRluWJxAjt7XI4X52Ba-0Tw6BLT4277zY">
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-container-max mx-auto">
+<!-- Timer Section -->
+<div class="mb-stack-md">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-caps text-label-caps text-primary tracking-widest">TIME TO CHOOSE</span>
+<span class="font-headline-md text-headline-md text-error animate-pulse" id="timer-text">00s</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full timer-gradient w-4/5 rounded-full transition-all duration-1000" id="timer-bar" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Selection Header -->
+<div class="text-center mb-stack-lg">
+<h2 class="font-display-lg text-display-lg-mobile text-on-surface mb-2">Select Your Target</h2>
+<div class="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary-container/20 border border-secondary/30 rounded-full">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">blur_on</span>
+<p class="font-body-sm text-body-sm text-secondary">Power-up Active: <strong>Blur Answers</strong></p>
+</div>
+</div>
+<!-- Target Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Target Card 1 -->
+<button class="selection-card group relative flex flex-col items-center p-stack-md bg-surface-container border-2 border-white/5 rounded-lg text-left" onclick="selectTarget(this)">
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-4 border-surface-bright group-hover:border-primary/50 transition-all p-1 relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="A stylized 3D character portrait of NeonNinja, a professional gamer wearing sleek carbon-fiber armor with glowing electric-green accents. The character has short spiky hair and a confident smirk. Set against a dark, techno-inspired background with subtle green neon glows. Consistent with high-energy game show aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCK1aIDSjbPUChQPOiw1Cdx1q_Bju6iGRIEBWJCnRQGwFsnsP3tUvTXc7UWn5-WIH9dxbTqj0o-9O3a8vGPfw36-VDlMrZ2WtDb5kGdXpMoMLiRDGZTtqY9_9jT_9kQ71Nj5yGahJkrRVwq0svjZbsZhEWBhBQIijSsgbSkbq4QN3SeoMDJ7ROsa0Wgzw1V1PBFcB0W3E1Hc9gHIG-Fd5SvdCFatgWWUtNRzkJjsmDQUXrZGz69mxtzb0CsbRji0Bo6AA7_t00EYQ">
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-tertiary rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">NeonNinja</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Rank: Gold II • 2,450 pts</p>
+<div class="flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+</button>
+<!-- Target Card 2 -->
+<button class="selection-card group relative flex flex-col items-center p-stack-md bg-surface-container border-2 border-white/5 rounded-lg text-left" onclick="selectTarget(this)">
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-4 border-surface-bright group-hover:border-primary/50 transition-all p-1 relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="A high-quality 3D avatar of CosmicRay, a futuristic explorer character with a polished chrome helmet reflecting purple and pink neon lights. The avatar wears a sleek white and violet spacesuit. Dark, deep-space background with a soft magenta nebular glow. High-octane vibrant modernism style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-SJMUndelplNK6ZA91jqOGkJJg8AG8rr2Xkq37MNYQX5ppjXuQrz2hBa3ebiafHw8dNkH9LNShKX3T73wugGY5yuaQjKQm0B1AbcKk_paYZgJCN6rkYlB94X20HyTn9zzUANw1pOV88hj2-LQqzh3CeDvoDi_HT7CVTsK3SBAfGZn1rkDQpcE5S8kuD0XYpjDOjZyIo8yJDwKBMhda80k77lYZY2iU7j_Dtar9bKoumYfmikAU3cTwPEC-lYRs_atMCmxynjR5-8">
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-tertiary rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">CosmicRay</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Rank: Quiz Master • 4,120 pts</p>
+<div class="flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+</div>
+</div>
+</button>
+<!-- Target Card 3 -->
+<button class="selection-card group relative flex flex-col items-center p-stack-md bg-surface-container border-2 border-white/5 rounded-lg text-left" onclick="selectTarget(this)">
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-4 border-surface-bright group-hover:border-primary/50 transition-all p-1 relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="A 3D character portrait of CyberQueen, featuring a regal figure with glowing circuit-pattern tattoos on her face and bright blue hair. She wears high-tech golden accessories and a dark indigo cybernetic garment. The mood is powerful and social, with a backdrop of a blurred digital city at night." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8CwYhvh8VG5XV5_1X5TanJuywECDPc_TVinBEE2VznBrlQifPNRCGyoO06A1xOmllVMmA8bBh4i5V6yWnKDhhBFLsYCGyOXmRFOZ2Yi6ZEBH1VpRKHPp9EVhQ974zNNnBBK9KMB3-rQcR3ijFj7o9xmf16WCFytyVN97fDWXRYjrJSNiGRFyCelKRsKIlyh0iPTal2f2khw8mVrnxKtdF5EqaXvOWVzBix78TJxICyd8oK9juj80NpW0N206TKH2U-BUGysA8RtA">
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-tertiary rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">CyberQueen</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Rank: Diamond I • 3,890 pts</p>
+<div class="flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+</button>
+<!-- Disabled Card (Self) -->
+<div class="relative flex flex-col items-center p-stack-md bg-surface-container-low border border-white/5 rounded-lg opacity-40 grayscale pointer-events-none">
+<div class="absolute top-2 left-2">
+<span class="font-label-caps text-[10px] bg-surface-variant px-2 py-1 rounded">YOU</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-2 border-outline/30 p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="A futuristic 3D avatar profile picture of a gamer with glowing neon blue highlights on their headset and metallic silver skin. The background is a dark, atmospheric purple void with subtle floating digital data fragments. This is the disabled self-player card." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD2roBxCv3QJ6sWrjXIByI3IXOuz0AwUArdLB_9s9MocHu6vFfjDmgSKo9D2bN1mG7a_pbIh8r_KURImnudG1LL7CQhpOfCsS5chjLAj1IAsrjHMfeF7vYaO5PS0af_ZlUSuxIAC8bZG2oyTJnVh3p22PZnLTUtnN0RfYBwOoPaG1L14sOLIePdIBS4y3Ikl8jz8AGGX2_P0lpDBBsbeF0iW6DGFzFuwQMwwCwcDQpykCuPbqdrbx1cQpckzdP1MtWYHyoNJqZpjA">
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">PlayerOne</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cannot target yourself</p>
+</div>
+</div>
+<!-- Target Card 4 -->
+<button class="selection-card group relative flex flex-col items-center p-stack-md bg-surface-container border-2 border-white/5 rounded-lg text-left" onclick="selectTarget(this)">
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-4 border-surface-bright group-hover:border-primary/50 transition-all p-1 relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="A 3D character portrait of ShadowStriker, a mysterious figure in a dark matte-black tactical gear with soft orange glowing goggles. The character's face is partially obscured by a hood. Atmospheric smoke and amber sparks in the background. High-quality game art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYUFie7zqTOKMpzIklHGXB9nHNd5g7j6axyOxmZ2x01cSVGoByApIzMGWYvHf17UMj3PbsLqHpmVtwMEo2NmiPqEBOoiV8IThYgkiEMTcn6trHTaS1AjBfdWkFSf_OiWDB_LFYMm-8crkc07GSUIj_XYA5mvOJNCjEhpunmvueNwkXpBA2ro-G7AGvb-IhdRMo3Zn9Qo1uH7EIaJ_lXjhTyk4UzhRFLspvRk80B_gI8P6qJv6OpS9SYoJpi_4roMzOnRFh6ubl6UI">
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-error rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-error" style="font-variation-settings: 'FILL' 1;">close</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">ShadowStriker</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Rank: Bronze III • 820 pts</p>
+<div class="flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+</button>
+<!-- Target Card 5 -->
+<button class="selection-card group relative flex flex-col items-center p-stack-md bg-surface-container border-2 border-white/5 rounded-lg text-left" onclick="selectTarget(this)">
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<div class="w-24 h-24 mb-4 rounded-full border-4 border-surface-bright group-hover:border-primary/50 transition-all p-1 relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="A 3D avatar of PixelVibe, a retro-inspired character with a voxel-art style face but smooth modern lighting effects. Bright pink sunglasses and a yellow beanie. Colorful 8-bit clouds and neon stars in the background. Vibrant and fun game aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpdRhUrt-riUJeucqArWD2rNXzTslW29EY8j40iPO82sZnX_-RU-rX1xq5jS5ndJwuWUMAJ2Mduq0WiVUO110D87ttskuj6FvlEozfnfnhFtQHBZB-z6KaMO2RDnfYyBmYhjkRBdCSNGuLucwMqjfCWk6KBHQyb36Fd5WvS_jn5OpqA-HMGnqdvplEoHaw2NbjYa6tfvH88lbxLsJt8TEK_wj4OiGazVkFfnxWK2SCy9P3EyZwLMA64JKwnVjug_9uCvoIcwWDX7M">
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-tertiary rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">PixelVibe</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Rank: Silver I • 1,560 pts</p>
+<div class="flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-surface-variant"></div>
+</div>
+</div>
+</button>
+</div>
+<!-- Action Footer -->
+<div class="mt-stack-lg flex flex-col items-center">
+<button class="px-12 py-4 bg-surface-container-highest text-on-surface-variant font-headline-md rounded-lg shadow-lg transition-all duration-300 flex items-center gap-3 active:scale-95 disabled:cursor-not-allowed" disabled="" id="confirm-btn">
+<span class="">Confirm Selection</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+<p class="mt-4 font-body-sm text-on-surface-variant">Hurry! Your power-up expires if not used.</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+
+<script>
+        // Simple Selection Logic
+        let selectedElement = null;
+        const confirmBtn = document.getElementById('confirm-btn');
+
+        function selectTarget(el) {
+            // Reset previous
+            if (selectedElement) {
+                selectedElement.classList.remove('border-primary', 'bg-primary/10', 'vibrant-glow');
+                selectedElement.classList.add('border-white/5', 'bg-surface-container');
+            }
+
+            // Set new
+            selectedElement = el;
+            el.classList.add('border-primary', 'bg-primary/10', 'vibrant-glow');
+            el.classList.remove('border-white/5', 'bg-surface-container');
+
+            // Enable Confirm
+            confirmBtn.disabled = false;
+            confirmBtn.classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+            confirmBtn.classList.add('bg-primary', 'text-on-primary', 'hover:shadow-[0_0_20px_rgba(192,193,255,0.6)]');
+            
+            // Micro-interaction haptic simulation
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+        }
+
+        // Timer countdown simulation
+        let timeLeft = 8;
+        const timerText = document.getElementById('timer-text');
+        const timerBar = document.getElementById('timer-bar');
+
+        const interval = setInterval(() => {
+            timeLeft -= 1;
+            timerText.innerText = `0${timeLeft}s`;
+            timerBar.style.width = `${(timeLeft / 10) * 100}%`;
+            
+            if (timeLeft <= 3) {
+                timerText.classList.remove('text-secondary');
+                timerText.classList.add('text-error', 'animate-pulse');
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                // Handle timeout...
+            }
+        }, 1000);
+
+        // Particle effect logic (Atmospheric)
+        function createParticles() {
+            const body = document.body;
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animation = `float ${5 + Math.random() * 10}s infinite linear`;
+                body.appendChild(particle);
+            }
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes float {
+                0% { transform: translateY(0) translateX(0); opacity: 0; }
+                50% { opacity: 1; }
+                100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+        createParticles();
+    </script><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 75.2688vw; top: 58.0399vh; animation: 14.029s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 66.5794vw; top: 81.7784vh; animation: 5.01915s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 36.4105vw; top: 10.393vh; animation: 8.96275s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 69.5509vw; top: 32.774vh; animation: 10.7223s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 35.4467vw; top: 53.4254vh; animation: 6.59801s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 24.0783vw; top: 70.3282vh; animation: 9.09172s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 70.9081vw; top: 76.7587vh; animation: 10.2556s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 63.1787vw; top: 3.1363vh; animation: 7.8309s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 73.9358vw; top: 28.9435vh; animation: 11.9223s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 91.6689vw; top: 6.97788vh; animation: 5.4012s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 26.9482vw; top: 23.7306vh; animation: 10.7356s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 11.3598vw; top: 79.6407vh; animation: 9.47409s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 95.9179vw; top: 97.4144vh; animation: 6.48932s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 86.6775vw; top: 20.4145vh; animation: 14.3618s linear 0s infinite normal none running float;"></div><div class="absolute pointer-events-none w-1 h-1 bg-primary/20 rounded-full" style="left: 72.3993vw; top: 7.06425vh; animation: 8.37004s linear 0s infinite normal none running float;"></div>
+
+
+</body></html>

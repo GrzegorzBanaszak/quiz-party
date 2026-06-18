@@ -222,6 +222,7 @@ public sealed class GameService
                     CurrentRound = 0,
                     CurrentQuestionIndex = 0,
                     CurrentCategoryId = null,
+                    CurrentQuestionIds = [],
                     CurrentQuestion = null,
                     LastQuestionResult = null,
                     Players = resetPlayers,
@@ -337,6 +338,7 @@ public sealed class GameService
                     CurrentRound = 1,
                     CurrentQuestionIndex = 0,
                     CurrentCategoryId = null,
+                    CurrentQuestionIds = [],
                     CurrentQuestion = null,
                     LastQuestionResult = null,
                     CategoryVotes = new Dictionary<string, string>(),
@@ -518,13 +520,15 @@ public sealed class GameService
                     }
 
                     var categoryId = SelectWinningCategory(current);
-                    var question = GetQuestionFor(categoryId, 1, current.Settings.AnswerTimeSeconds);
+                    var questionIds = SelectQuestionIdsFor(categoryId, current.Settings.QuestionsPerRound);
+                    var question = GetQuestionFor(questionIds, 1, current.Settings.AnswerTimeSeconds);
 
                     questionStarted = true;
                     return Task.FromResult(current with
                     {
                         State = RoomState.Question,
                         CurrentCategoryId = categoryId,
+                        CurrentQuestionIds = questionIds,
                         CurrentQuestionIndex = 1,
                         CurrentQuestion = question,
                         QuestionStartedAtUtc = DateTimeOffset.UtcNow,
@@ -689,7 +693,7 @@ public sealed class GameService
 
                         var nextIndex = current.CurrentQuestionIndex + 1;
                         var nextQuestion = GetQuestionFor(
-                            current.CurrentCategoryId,
+                            current.CurrentQuestionIds,
                             nextIndex,
                             current.Settings.AnswerTimeSeconds);
 
@@ -719,6 +723,7 @@ public sealed class GameService
                             CurrentRound = current.CurrentRound + 1,
                             CurrentQuestionIndex = 0,
                             CurrentCategoryId = null,
+                            CurrentQuestionIds = [],
                             CurrentQuestion = null,
                             LastQuestionResult = null,
                             Answers = new Dictionary<string, SubmittedAnswer>(),
@@ -733,6 +738,7 @@ public sealed class GameService
                     return Task.FromResult(current with
                     {
                         State = RoomState.Finished,
+                        CurrentQuestionIds = [],
                         CurrentQuestion = null,
                         LastQuestionResult = null,
                         Answers = new Dictionary<string, SubmittedAnswer>(),
@@ -895,10 +901,10 @@ public sealed class GameService
             .ToList();
     }
 
-    private Question GetQuestionFor(string categoryId, int questionIndex, int timeLimitSeconds)
+    private IReadOnlyList<string> SelectQuestionIdsFor(string categoryId, int questionCount)
     {
         var questions = _questionBank.GetQuestions(categoryId);
-        if (questions.Count < questionIndex)
+        if (questions.Count < questionCount)
         {
             throw new GameException(
                 StatusCodes.Status500InternalServerError,
@@ -906,7 +912,33 @@ public sealed class GameService
                 "Bank pytan nie ma wystarczajacej liczby pytan dla kategorii.");
         }
 
-        var question = questions[questionIndex - 1].ToQuestion(timeLimitSeconds);
+        return questions
+            .OrderBy(_ => RandomNumberGenerator.GetInt32(int.MaxValue))
+            .Take(questionCount)
+            .Select(question => question.Id)
+            .ToList();
+    }
+
+    private Question GetQuestionFor(IReadOnlyList<string> questionIds, int questionIndex, int timeLimitSeconds)
+    {
+        if (questionIds.Count < questionIndex)
+        {
+            throw new GameException(
+                StatusCodes.Status500InternalServerError,
+                "question_bank_too_small",
+                "Bank pytan nie ma wystarczajacej liczby pytan dla kategorii.");
+        }
+
+        var questionDefinition = _questionBank.GetQuestion(questionIds[questionIndex - 1]);
+        if (questionDefinition is null)
+        {
+            throw new GameException(
+                StatusCodes.Status500InternalServerError,
+                "question_missing",
+                "Pytanie nie istnieje w banku pytan.");
+        }
+
+        var question = questionDefinition.ToQuestion(timeLimitSeconds);
         return question with { Answers = ShuffleAnswers(question.Answers) };
     }
 
